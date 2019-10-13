@@ -98,7 +98,7 @@ namespace ConsoleApp5
                 new int[] {1, 2, 2, 1},
                 new int[] {2, 3, 3, 2},
                 new int[] {3, 4, 0, 0}
-            };
+            };//1, 0, 2, 3
             int[][] B = new int[][]
             {
                 new int[] {1,0,0, 1, 1},
@@ -106,7 +106,7 @@ namespace ConsoleApp5
                 new int[] {1, 1, 2, 0,0},
                 new int[] {0,2, 3, 1,1},
                 new int[] {0,3, 4, 2,2}
-            };
+            };//3, 1, 4, 4
             int r = 0; int x1 = 0; int y1 = 0; int x2 = 0; int y2 = 0; int maxSize = int.MinValue;
             foreach (var item in A)
             {
@@ -118,6 +118,19 @@ namespace ConsoleApp5
                 y2 = result[3];
                 maxSize = result[4];
             }
+            Console.WriteLine($"{x1},{y1},{ x2}, {y2},{maxSize}");
+            r = 0; x1 = 0; y1 = 0; x2 = 0; y2 = 0; maxSize = int.MinValue;
+            foreach (var item in B)
+            {
+                var result = _max_hist(item, r, x1, y1, x2, y2, maxSize);
+                r++;
+                x1 = result[0];
+                y1 = result[1];
+                x2 = result[2];
+                y2 = result[3];
+                maxSize = result[4];
+            }
+            Console.WriteLine($"{x1},{y1},{ x2}, {y2},{maxSize}");
             Console.WriteLine("Hello World!");
         }
     }
