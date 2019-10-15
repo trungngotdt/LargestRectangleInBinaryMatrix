@@ -7,7 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LargestRectangleInBinaryMat
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LargestRectangleInBinaryMatrixPy", "LargestRectangleInBinaryMatrixPy\LargestRectangleInBinaryMatrixPy.pyproj", "{3656956F-B15A-417F-B380-1AE5C8DC970A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargestRectangleInBinaryMatrixCSharp", "LargestRectangleInBinaryMatrixCSharp\LargestRectangleInBinaryMatrixCSharp.csproj", "{28C0ECB4-3976-4E45-9BDC-D5DC82E35452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LargestRectangleInBinaryMatrixCSharp", "LargestRectangleInBinaryMatrixCSharp\LargestRectangleInBinaryMatrixCSharp.csproj", "{28C0ECB4-3976-4E45-9BDC-D5DC82E35452}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LargestRectangleInBinaryMatrixJava", "LargestRectangleInBinaryMatrixJava", "{AC5FD5A6-3943-48F7-BB33-2FD4DA106406}"
+	ProjectSection(SolutionItems) = preProject
+		LargestRectangleInBinaryMatrixJava.java = LargestRectangleInBinaryMatrixJava.java
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
