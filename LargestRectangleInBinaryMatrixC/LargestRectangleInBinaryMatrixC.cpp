@@ -155,8 +155,52 @@ int* _max_hist(int* row, int lengthRow, int r = 0, int x1 = 0, int y1 = 0, int x
 	result[4] = maxSize;
 	return result;
 }
+
+int** ReadFileAndTranfer(const char* filename)
+{
+
+#pragma warning (disable : 4996)
+
+	int c, temp, count = 0, i = 0, j = 0;
+	int** array;
+	FILE* in;
+	in = fopen(filename, "r");
+	fscanf(in, "%d", &count);
+	array = (int**)malloc(count * count * sizeof(int*));
+	for (i = 0;i < count;i++)
+	{
+		array[i] = (int*)malloc(count * sizeof(int));
+	}
+	i = 0;
+	for (i = 0; i < count; i++)
+	{
+		for (j = 0; j < count; j++)
+		{
+			fscanf(in, "%d", &temp);
+			array[i][j] =i==0? temp:(temp==0?temp:array[i-1][j]+1);
+		}
+	}
+	fclose(in);
+	return array;
+}
 int main()
 {
+	int** AA = ReadFileAndTranfer("test1.txt");
+	
+	/*
+	int r = 3, c = 4, i, j, count;
+
+	int** arr = (int**)malloc(r * sizeof(int*));
+	for (i = 0; i < r; i++)
+		arr[i] = (int*)malloc(c * sizeof(int));
+
+	// Note that arr[i][j] is same as *(*(arr+i)+j) 
+	count = 0;
+	for (i = 0; i < r; i++)
+		for (j = 0; j < c; j++)
+			arr[i][j] = ++count;
+	*/
+	
 	int A[4][4] =
 	{
 		{0, 1, 1, 0},
@@ -207,13 +251,3 @@ int main()
 	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
