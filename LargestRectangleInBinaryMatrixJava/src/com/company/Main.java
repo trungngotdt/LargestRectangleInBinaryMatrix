@@ -78,7 +78,7 @@ public class Main {
     }
 
     static int[][] ReadFile(String path) throws IOException {
-        File file = new File("C:\\Users\\Admin\\Documents\\Git\\LargestRectangleInBinaryMatrix\\LargestRectangleInBinaryMatrixC\\test1.txt");
+        File file = new File(path);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         int count = Integer.parseInt(br.readLine());
@@ -110,7 +110,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int[][] resulta = ReadFile("");
+        int[][] matrix = ReadFile(args[1]);
 
         int r = 0;
         int x1 = 0;
@@ -119,14 +119,14 @@ public class Main {
         int y2 = 0;
         int maxSize = Integer.MIN_VALUE;
 
-        for (int[] item : resulta) {
-            int[] result = _max_hist(item, r, x1, y1, x2, y2, maxSize);
+        for (int[] item :matrix) {
+            int[] maxRectangle = _max_hist(item, r, x1, y1, x2, y2, maxSize);
             r++;
-            x1 = result[0];
-            y1 = result[1];
-            x2 = result[2];
-            y2 = result[3];
-            maxSize = result[4];
+            x1 = maxRectangle[0];
+            y1 = maxRectangle[1];
+            x2 = maxRectangle[2];
+            y2 = maxRectangle[3];
+            maxSize = maxRectangle[4];
         }
         StringBuilder builder = new StringBuilder();
         builder.append(x1);
@@ -136,8 +136,8 @@ public class Main {
         builder.append(x2);
         builder.append(' ');
         builder.append(y2);
-        String sss = builder.toString();
-        WriteFile("tes.txt",sss);
+        String content = builder.toString();
+        WriteFile(args[2],content);
         System.out.println("a");
     }
 }

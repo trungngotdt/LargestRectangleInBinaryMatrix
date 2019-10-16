@@ -167,7 +167,7 @@ int** ReadFileAndTranfer(const char* filename)
 int main(int argc, char* argv[])
 {
 	int* result;
-	const char* filename = "test1.txt";
+	const char* filename = argv[1];
 	FILE* out;
 	int temp, count = 0, i = 0, j = 0;
 	int** array;
@@ -208,9 +208,10 @@ int main(int argc, char* argv[])
 
 	
 
-	out = fopen("out.txt", "w+");
+	out = fopen(argv[1], "w+");
 	fprintf(out, "%d %d\n%d %d", x1, y1, x2, y2);
 	fclose(out);
+	
 	return 0;
 }
 

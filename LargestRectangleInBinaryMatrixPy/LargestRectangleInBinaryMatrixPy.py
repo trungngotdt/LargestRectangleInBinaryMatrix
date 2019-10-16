@@ -55,7 +55,7 @@ def _max_hist(row, lengthRow,r,x1,y1 ,x2 ,y2 ,maxSize):
   return result
 
 array=[]
-input=open("C:\\Users\\Admin\\Documents\\Git\\LargestRectangleInBinaryMatrix\\LargestRectangleInBinaryMatrixC\\test1.txt","r")
+input=open(sys.argv[1],"r")
 storeInput=input.readlines()
 input.close()
 count=int(storeInput[0])
@@ -88,7 +88,7 @@ for i in range(0,count):
     x2 = result[2]
     y2 = result[3]
     maxSize = result[4]
-output= open("out.txt","w+")
+output= open(sys.argv[2],"w+")
 
 output.write(str( x1)+" "+str( y1)+" \n"+str( x2)+" "+str( y2))
 output.close()
