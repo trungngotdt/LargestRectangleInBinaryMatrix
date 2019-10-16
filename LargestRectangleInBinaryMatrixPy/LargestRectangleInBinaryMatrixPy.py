@@ -1,4 +1,4 @@
-
+import sys
 def _max_hist(row, lengthRow,r,x1,y1 ,x2 ,y2 ,maxSize):
   heightStack=[]
   positionStack=[]
@@ -54,41 +54,44 @@ def _max_hist(row, lengthRow,r,x1,y1 ,x2 ,y2 ,maxSize):
   result[4] = maxSize
   return result
 
-A =[[0, 1, 1, 0],[1, 2, 2, 1],[2, 3, 3, 2],[3, 4, 0, 0]]
-B =[[1,0,0, 1, 1],[0,0, 1, 2, 2],[1, 1, 2, 0,0],[0,2, 3, 1,1],[0,3, 4, 2,2]]
+array=[]
+input=open("C:\\Users\\Admin\\Documents\\Git\\LargestRectangleInBinaryMatrix\\LargestRectangleInBinaryMatrixC\\test1.txt","r")
+storeInput=input.readlines()
+input.close()
+count=int(storeInput[0])
+print(storeInput[1].split())
+
+for i in range(1,count+1):
+    strArr=[int(item) for item in storeInput[i].split()]
+    #print(strArr)
+    array.append(strArr)
+
+for i in range(0,count):
+    for j in range(0,count):
+        if i!=0 and array[i][j]!=0:
+            array[i][j]=array[i-1][j]+1
+        else:
+            array[i][j]=array[i][j]
+
 r = 0
 x1 = 0
 y1 = 0
 x2 = 0
 y2 = 0
 maxSize = -100
-for i in range(0,4):
-  result = _max_hist(A[i], 4, r, x1, y1, x2, y2, maxSize)
-  r=r+1
-  x1 = result[0]
-  y1 = result[1]
-  x2 = result[2]
-  y2 = result[3]
-  maxSize = result[4]
-	
 
-print( x1, y1, x2, y2,maxSize)
+for i in range(0,count):
+    result = _max_hist(array[i], count, r, x1, y1, x2, y2, maxSize)
+    r=r+1
+    x1 = result[0]
+    y1 = result[1]
+    x2 = result[2]
+    y2 = result[3]
+    maxSize = result[4]
+output= open("out.txt","w+")
 
-r = 0
-x1 = 0
-y1 = 0
-x2 = 0
-y2 = 0
-maxSize = -100
-for i in range(0,5):
-	result = _max_hist(B[i], 5, r, x1, y1, x2, y2, maxSize)
-	r=r+1
-	x1 = result[0]
-	y1 = result[1]
-	x2 = result[2]
-	y2 = result[3]
-	maxSize = result[4]
-	
-
-print( x1, y1, x2, y2,maxSize)
-
+output.write(str( x1)+" "+str( y1)+" \n"+str( x2)+" "+str( y2))
+output.close()
+print(str( x1)+" "+str( y1)+" \n"+str( x2)+" "+str( y2))
+#for i in range(0,count):
+#    print(input.readline())

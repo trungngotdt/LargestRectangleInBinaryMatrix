@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LargestRectangleInBinaryMatrixC.cpp" />
+    <ClCompile Include="Source.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test1.txt" />

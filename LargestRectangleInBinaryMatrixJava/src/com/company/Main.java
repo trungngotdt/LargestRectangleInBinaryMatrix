@@ -91,7 +91,7 @@ public class Main {
             length = arraySt.length;
             for (int j = 0; j < length; j++) {
                 int temp = Integer.parseInt(arraySt[j]);
-                result[i][j] = i == 0 ? temp : (temp == 0 ? temp : result[i - 1][j] + 1);
+                result[i][j] =i!=0&& result[i][j]!=0 ?result[i-1][j]+1:temp;
             }
         }
         return result;
@@ -112,21 +112,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int[][] resulta = ReadFile("");
 
-        int[][] A = new int[][]
-                {
-                        new int[]{0, 1, 1, 0},
-                        new int[]{1, 2, 2, 1},
-                        new int[]{2, 3, 3, 2},
-                        new int[]{3, 4, 0, 0}
-                };//1, 0, 2, 3
-        int[][] B = new int[][]
-                {
-                        new int[]{1, 0, 0, 1, 1},
-                        new int[]{0, 0, 1, 2, 2},
-                        new int[]{1, 1, 2, 0, 0},
-                        new int[]{0, 2, 3, 1, 1},
-                        new int[]{0, 3, 4, 2, 2}
-                };//3, 1, 4, 4
         int r = 0;
         int x1 = 0;
         int y1 = 0;
