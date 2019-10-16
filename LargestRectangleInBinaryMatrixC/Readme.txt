@@ -1,0 +1,1 @@
+compile :gcc --std=c90 --pedantic -g -rdynamic  Source.c -o run

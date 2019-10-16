@@ -155,6 +155,7 @@
     <ClCompile Include="Source.c" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Readme.txt" />
     <Text Include="test1.txt" />
     <Text Include="test2.txt" />
   </ItemGroup>
