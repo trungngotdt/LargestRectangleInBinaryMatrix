@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: installJava
-          command : apt update&& apt -y install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common&&wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -&&add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ &&apt update&&apt -y install adoptopenjdk-8-hotspot
+          command : apt update&& apt -y install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common&&wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -&&add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ &&apt update&&apt -y install adoptopenjdk-8-hotspot
       
       - run:
           name: install
