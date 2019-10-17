@@ -34,7 +34,7 @@ namespace TestLargestRectangleInBinaryMatrix
             string str = "";
             foreach (FileInfo file in Files)
             {
-                RunCommand($"cd {pathTestCase} ./run {file.Name+".txt"}  {"OutC" +file.Name + ".txt"}");
+                RunCommand($"cd {pathTestCase} && ./run {file.Name+".txt"}  {"OutC" +file.Name + ".txt"}");
             }
             RunCommand($"cd {pathTestCase} && ls");
             Assert.Pass();
