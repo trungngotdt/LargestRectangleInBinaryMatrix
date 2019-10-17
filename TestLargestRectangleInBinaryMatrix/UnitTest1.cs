@@ -31,11 +31,11 @@ namespace TestLargestRectangleInBinaryMatrix
             RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic Source.c -o run && cp run {pathTestCase}");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
             FileInfo[] Files = d.GetFiles("*.txt"); 
-            string str = "";
             foreach (FileInfo file in Files)
             {
                 string input=file.Name+".txt";
                 string output = "OutC" + file.Name + ".txt";
+                RunCommand(output);
                 RunCommand("cd "+pathTestCase +"&& ./run "+input+" "+output);
             }
             RunCommand($"cd {pathTestCase} && ls");
