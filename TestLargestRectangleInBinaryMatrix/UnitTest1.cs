@@ -8,14 +8,7 @@ namespace TestLargestRectangleInBinaryMatrix
         [SetUp]
         public void Setup()
         {
-            Process process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "/bin/bash"; 
-            startInfo.Arguments = "-c \"ls\"";
-            process.StartInfo = startInfo;
-            process.Start();
-            System.Console.WriteLine("A");
+            
         }
 
         [Test]
