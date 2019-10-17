@@ -13,7 +13,7 @@ namespace TestLargestRectangleInBinaryMatrix
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = " / bin/bash";
+            startInfo.FileName = "/bin/bash";
             startInfo.Arguments = $"-c \"{cmd}\"";
             process.StartInfo = startInfo;
             process.Start();
@@ -45,7 +45,7 @@ namespace TestLargestRectangleInBinaryMatrix
         public void TestPython()
         {
 
-            RunCommand("cd /root/project/LargestRectangleInBinaryMatrixPy");
+            RunCommand("cd / &&cd /root/project/LargestRectangleInBinaryMatrixPy");
             RunCommand("pwd");
             Assert.Pass();
         }
