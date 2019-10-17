@@ -25,6 +25,7 @@ namespace TestLargestRectangleInBinaryMatrix
         public void TestC()
         {
             RunCommand("cd /root/project/LargestRectangleInBinaryMatrixC");
+            RunCommand("pwd");
             Assert.Pass();
         }
 
@@ -33,6 +34,7 @@ namespace TestLargestRectangleInBinaryMatrix
         {
 
             RunCommand("cd /root/project/LargestRectangleInBinaryMatrixPy");
+            RunCommand("pwd");
             Assert.Pass();
         }
 
@@ -41,6 +43,7 @@ namespace TestLargestRectangleInBinaryMatrix
         {
 
             RunCommand("cd /root/project/LargestRectangleInBinaryMatrixJava");
+            RunCommand("pwd");
             Assert.Pass();
         }
     }
