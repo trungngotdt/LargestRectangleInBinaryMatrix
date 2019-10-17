@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Diagnostics;
+using System;
 
 namespace TestLargestRectangleInBinaryMatrix
 {
@@ -8,7 +9,8 @@ namespace TestLargestRectangleInBinaryMatrix
         [SetUp]
         public void Setup()
         {
-            
+            Console.WriteLine("AAAAAAAAAAAAA");
+            Debug.WriteLine("DDDDDDDDDDDDDDD");
         }
 
         [Test]
