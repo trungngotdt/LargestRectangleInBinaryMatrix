@@ -11,7 +11,7 @@ jobs:
       
       - run:
           name: install
-          command : python
+          command : python3
       - run:
           name: dotnet
           command : dotnet restore&& dotnet build&& dotnet test TestLargestRectangleInBinaryMatrix/TestLargestRectangleInBinaryMatrix.csproj
