@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: install
-          command : cat /etc/os-release
+          command : add-apt-repository ppa:openjdk-r/ppa&& apt-get update&& apt install openjdk-8-jreapt update && apt install openjdk-8-jdk && apt install python3.6
       - run:
           name: dotnet
           command : dotnet restore&& dotnet build&& dotnet test TestLargestRectangleInBinaryMatrix/TestLargestRectangleInBinaryMatrix.csproj
