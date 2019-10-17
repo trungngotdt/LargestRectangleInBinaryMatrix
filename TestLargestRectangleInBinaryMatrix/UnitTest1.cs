@@ -1,16 +1,19 @@
 using NUnit.Framework;
 using System.Diagnostics;
+using System.IO;
 
 namespace TestLargestRectangleInBinaryMatrix
 {
     public class Tests
     {
+        private string pathTestCase = @"/root/project/TestLargestRectangleInBinaryMatrix/TestCases";
+
         private void RunCommand(string cmd)
         {
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "/bin/bash";
+            startInfo.FileName = " / bin/bash";
             startInfo.Arguments = $"-c \"{cmd}\"";
             process.StartInfo = startInfo;
             process.Start();
@@ -24,8 +27,17 @@ namespace TestLargestRectangleInBinaryMatrix
         [Test]
         public void TestC()
         {
-            RunCommand("cd /root/project/LargestRectangleInBinaryMatrixC");
-            RunCommand("pwd");
+            RunCommand("gcc --std=c90 --pedantic -g -rdynamic /root/project/LargestRectangleInBinaryMatrixC/Source.c -o run");
+            DirectoryInfo d = new DirectoryInfo(pathTestCase);
+            FileInfo[] Files = d.GetFiles("*.txt"); 
+            string str = "";
+            foreach (FileInfo file in Files)
+            {
+                RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && ./run {pathTestCase+"/"+ file.Name} {pathTestCase + "/" + "OutC" +file.Name} ");
+            }
+            RunCommand($"cd /root/project/TestLargestRectangleInBinaryMatrix/TestCases && ls");
+
+
             Assert.Pass();
         }
 
