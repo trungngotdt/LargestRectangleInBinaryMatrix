@@ -15,6 +15,7 @@ namespace TestLargestRectangleInBinaryMatrix
             startInfo.Arguments = "-c \"ls\"";
             process.StartInfo = startInfo;
             process.Start();
+            System.Console.WriteLine("A");
         }
 
         [Test]
