@@ -7,11 +7,11 @@ jobs:
       - checkout
       - run:
           name: installJava
-          command : apt update&& apt -y install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common&&wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -&&add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ &&apt update&&apt -y install adoptopenjdk-8-hotspot
+          command : apt update&& apt -y install apt-transport-https ca-certificates wget dirmngr gnupg &&wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -&&add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ &&apt update&&apt -y install adoptopenjdk-8-hotspot
       
       - run:
           name: install
-          command : apt -y install python3.6
+          command : add-apt-repository ppa:jonathonf/python-3.6&&apt-get update&&apt -y install python3.6
       - run:
           name: dotnet
           command : dotnet restore&& dotnet build&& dotnet test TestLargestRectangleInBinaryMatrix/TestLargestRectangleInBinaryMatrix.csproj
