@@ -17,6 +17,7 @@ namespace TestLargestRectangleInBinaryMatrix
             startInfo.Arguments = $"-c \"{cmd}\"";
             process.StartInfo = startInfo;
             process.Start();
+            process.WaitForExit();
         }
         [SetUp]
         public void Setup()
