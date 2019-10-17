@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System.Diagnostics;
-using System;
 
 namespace TestLargestRectangleInBinaryMatrix
 {
@@ -9,8 +8,13 @@ namespace TestLargestRectangleInBinaryMatrix
         [SetUp]
         public void Setup()
         {
-            Console.WriteLine("AAAAAAAAAAAAA");
-            Debug.WriteLine("DDDDDDDDDDDDDDD");
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "/bin/bash";
+            startInfo.Arguments = "-c \"pwd\"";
+            process.StartInfo = startInfo;
+            process.Start();
         }
 
         [Test]
