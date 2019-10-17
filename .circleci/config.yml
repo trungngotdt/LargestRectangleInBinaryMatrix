@@ -5,7 +5,7 @@ jobs:
       - image: mcr.microsoft.com/dotnet/core/sdk
     steps:
       - checkout
-	  - run:
+      - run:
           name: install
           command : apt update && apt install openjdk-8-jdk && apt install python3.6
       - run:
