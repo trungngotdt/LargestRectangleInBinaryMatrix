@@ -11,7 +11,7 @@ namespace TestLargestRectangleInBinaryMatrix
     public class Tests
     {
         private string pathTestCase = @"/root/project/TestLargestRectangleInBinaryMatrix/TestCases";
-        private string pathExcept = @"/root/project/TestLargestRectangleInBinaryMatrix/Except";
+        private string pathExpect = @"/root/project/TestLargestRectangleInBinaryMatrix/Expect";
         private string pathSourceC = @"/root/project/LargestRectangleInBinaryMatrixC";
         private string pathSourcePy = @"/root/project/LargestRectangleInBinaryMatrixPy";
         private string pathSourceJava = @"/root/project/LargestRectangleInBinaryMatrixJava";
@@ -53,26 +53,26 @@ namespace TestLargestRectangleInBinaryMatrix
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
             FileInfo[] Files = d.GetFiles("*.txt");
             var totalFile = Files.Length;
-            string pathFileinput = String.Empty;
-            string pathFileoutput = String.Empty;
-            string pathFileexpect = String.Empty;
-            string md5Fileoutput = String.Empty;
-            string md5Fileexpect = String.Empty;
+            string pathFileInput = String.Empty;
+            string pathFileOutput = String.Empty;
+            string pathFileExpect = String.Empty;
+            string md5FileOutput = String.Empty;
+            string md5FileExpect = String.Empty;
 
             for (int i = 1; i <= totalFile; i++)
             {
-                pathFileinput = Files[i].Name;
-                pathFileoutput = "OutC" + Files[i].Name;
-                pathFileexpect =pathExcept+"/"+ "result" + i + ".txt";
-                RunCommand("cd " + pathTestCase + "&& ./run " + pathFileinput + " " + pathFileoutput);
-                md5Fileexpect = CalculateMD5(pathFileexpect);
-                md5Fileoutput = CalculateMD5(pathTestCase+ pathFileoutput);
-                Assert.AreEqual(md5Fileoutput,md5Fileexpect);
-                if (!md5Fileexpect.Equals(md5Fileoutput))
+                pathFileInput = Files[i].Name;
+                pathFileOutput = "OutC" + Files[i].Name;
+                pathFileExpect =pathExpect+"/"+ "result" + i + ".txt";
+                RunCommand("cd " + pathTestCase + "&& ./run " + pathFileInput + " " + pathFileOutput);
+                md5FileExpect = CalculateMD5(pathFileExpect);
+                md5FileOutput = CalculateMD5(pathTestCase+ pathFileOutput);
+                Assert.AreEqual(md5FileOutput,md5FileExpect);
+                if (!md5FileExpect.Equals(md5FileOutput))
                 {
-                    RunCommand("cd " + pathTestCase + "&& cat "+pathFileoutput);
+                    RunCommand("cd " + pathTestCase + "&& cat "+pathFileOutput);
 
-                    RunCommand("cd " + pathExcept + "&& cat " + pathFileexpect);
+                    RunCommand("cd " + pathExpect + "&& cat " + pathFileExpect);
                 }
             }
            
