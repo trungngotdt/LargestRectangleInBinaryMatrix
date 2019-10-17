@@ -59,11 +59,11 @@ namespace TestLargestRectangleInBinaryMatrix
             string md5FileOutput = String.Empty;
             string md5FileExpect = String.Empty;
 
-            for (int i = 1; i <= totalFile; i++)
+            for (int i = 0; i < totalFile; i++)
             {
                 pathFileInput = Files[i].Name;
                 pathFileOutput = "OutC" + Files[i].Name;
-                pathFileExpect =pathExpect+"/"+ "result" + i + ".txt";
+                pathFileExpect =pathExpect+"/"+ "result" + i+1 + ".txt";
                 RunCommand("cd " + pathTestCase + "&& ./run " + pathFileInput + " " + pathFileOutput);
                 md5FileExpect = CalculateMD5(pathFileExpect);
                 md5FileOutput = CalculateMD5(pathTestCase+"/"+ pathFileOutput);
