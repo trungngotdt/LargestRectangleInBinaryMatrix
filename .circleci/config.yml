@@ -7,7 +7,6 @@ jobs:
       - checkout
       - run:
           name: dotnet
-          command : apt update && apt install openjdk-8-jdk && apt install python3.6
           command : dotnet restore
           command : dotnet build
           command : dotnet test TestLargestRectangleInBinaryMatrix/TestLargestRectangleInBinaryMatrix.csproj
