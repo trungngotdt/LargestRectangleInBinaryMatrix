@@ -33,8 +33,8 @@ namespace TestLargestRectangleInBinaryMatrix
             FileInfo[] Files = d.GetFiles("*.txt"); 
             foreach (FileInfo file in Files)
             {
-                string input=file.Name+".txt";
-                string output = "OutC" + file.Name + ".txt";
+                string input=file.Name;
+                string output = "OutC" + file.Name;
                 RunCommand("echo "+output);
                 RunCommand("cd "+pathTestCase +"&& ./run "+input+" "+output);
             }
