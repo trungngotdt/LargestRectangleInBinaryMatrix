@@ -59,7 +59,7 @@ namespace TestLargestRectangleInBinaryMatrix
             string md5Fileoutput = String.Empty;
             string md5Fileexpect = String.Empty;
 
-            for (int i = 0; i < totalFile; i++)
+            for (int i = 1; i <= totalFile; i++)
             {
                 pathFileinput = Files[i].Name;
                 pathFileoutput = "OutC" + Files[i].Name;
@@ -74,10 +74,6 @@ namespace TestLargestRectangleInBinaryMatrix
 
                     RunCommand("cd " + pathExcept + "&& cat " + pathFileexpect);
                 }
-            }
-            foreach (FileInfo file in Files)
-            {
-               
             }
            
                
