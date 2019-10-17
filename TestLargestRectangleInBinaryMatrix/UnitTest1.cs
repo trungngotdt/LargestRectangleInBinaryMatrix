@@ -35,7 +35,7 @@ namespace TestLargestRectangleInBinaryMatrix
             {
                 string input=file.Name+".txt";
                 string output = "OutC" + file.Name + ".txt";
-                RunCommand(output);
+                RunCommand("echo "+output);
                 RunCommand("cd "+pathTestCase +"&& ./run "+input+" "+output);
             }
             RunCommand($"cd {pathTestCase} && ls");
