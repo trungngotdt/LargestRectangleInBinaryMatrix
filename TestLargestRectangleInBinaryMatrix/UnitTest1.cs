@@ -35,8 +35,8 @@ namespace TestLargestRectangleInBinaryMatrix
             {
                 RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && ./run {pathTestCase+"/"+ file.Name} {pathTestCase + "/" + "OutC" +file.Name} ");
             }
-            RunCommand($"cd /root/project/TestLargestRectangleInBinaryMatrix/TestCases && ls");
-
+            RunCommand($"cd {pathTestCase} && ls");
+            RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && ls");
 
             Assert.Pass();
         }
