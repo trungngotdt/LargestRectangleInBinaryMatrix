@@ -27,7 +27,7 @@ namespace TestLargestRectangleInBinaryMatrix
         [Test]
         public void TestC()
         {
-            RunCommand("cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic Source.c -o run");
+            RunCommand("cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic Source.c -o run && ls");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
             FileInfo[] Files = d.GetFiles("*.txt"); 
             string str = "";
