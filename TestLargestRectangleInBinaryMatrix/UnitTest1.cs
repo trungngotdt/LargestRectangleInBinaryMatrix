@@ -28,15 +28,15 @@ namespace TestLargestRectangleInBinaryMatrix
         [Test]
         public void TestC()
         {
-            RunCommand("cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic Source.c -o run && ls");
+            RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic Source.c -o run && cp run {pathTestCase}");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
             FileInfo[] Files = d.GetFiles("*.txt"); 
             string str = "";
             foreach (FileInfo file in Files)
             {
-                RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && pwd && ./run {pathTestCase+"/"+ file.Name+".txt"}  {pathTestCase + "/" + "OutC" +file.Name + ".txt"} ");
+                RunCommand($"cd {pathTestCase} ./run {file.Name+".txt"}  {"OutC" +file.Name + ".txt"}");
             }
-            RunCommand($"cd /root/project/LargestRectangleInBinaryMatrixC && ls");
+            RunCommand($"cd {pathTestCase} && ls");
             Assert.Pass();
         }
 
