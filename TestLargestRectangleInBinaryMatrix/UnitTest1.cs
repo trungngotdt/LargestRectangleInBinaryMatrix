@@ -66,7 +66,7 @@ namespace TestLargestRectangleInBinaryMatrix
                 pathFileExpect =pathExpect+"/"+ "result" + i + ".txt";
                 RunCommand("cd " + pathTestCase + "&& ./run " + pathFileInput + " " + pathFileOutput);
                 md5FileExpect = CalculateMD5(pathFileExpect);
-                md5FileOutput = CalculateMD5(pathTestCase+ pathFileOutput);
+                md5FileOutput = CalculateMD5(pathTestCase+"/"+ pathFileOutput);
                 Assert.AreEqual(md5FileOutput,md5FileExpect);
                 if (!md5FileExpect.Equals(md5FileOutput))
                 {
