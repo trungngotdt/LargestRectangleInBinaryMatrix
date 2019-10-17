@@ -138,6 +138,6 @@ public class Main {
         builder.append(y2);
         String content = builder.toString();
         WriteFile(args[2],content);
-        System.out.println("a");
+        //System.out.println("a");
     }
 }

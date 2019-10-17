@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LargestRectangleInBinaryMat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LargestRectangleInBinaryMatrixCSharp", "LargestRectangleInBinaryMatrixCSharp\LargestRectangleInBinaryMatrixCSharp.csproj", "{28C0ECB4-3976-4E45-9BDC-D5DC82E35452}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLargestRectangleInBinaryMatrix", "TestLargestRectangleInBinaryMatrix\TestLargestRectangleInBinaryMatrix.csproj", "{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,18 @@ Global
 		{28C0ECB4-3976-4E45-9BDC-D5DC82E35452}.Release|x64.Build.0 = Release|Any CPU
 		{28C0ECB4-3976-4E45-9BDC-D5DC82E35452}.Release|x86.ActiveCfg = Release|Any CPU
 		{28C0ECB4-3976-4E45-9BDC-D5DC82E35452}.Release|x86.Build.0 = Release|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Debug|x86.Build.0 = Debug|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Release|x64.Build.0 = Release|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{A5C3A1FC-FC9D-400A-8EFE-195F170BB0BF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
