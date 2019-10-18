@@ -111,11 +111,12 @@ namespace TestLargestRectangleInBinaryMatrix
             var countFalse = 0;
             for (int i = 0; i < totalFile; i++)
             {
+                int index = i + 1;
                 para = new List<string>();
-                pathFileInput = "test" + i + ".txt";// Files[i].Name;
+                pathFileInput = "test" +index + ".txt";// Files[i].Name;
                 RunCommand($"echo {pathFileInput}");
                 pathFileOutput = typeLanguage + Files[i].Name; //"OutC" + Files[i].Name;
-                int index = i + 1;
+                
                 pathFileExpect = pathExpect + "/" + "result" + index + ".txt";
                 try
                 {
