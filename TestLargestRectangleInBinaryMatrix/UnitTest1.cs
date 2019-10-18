@@ -63,7 +63,8 @@ namespace TestLargestRectangleInBinaryMatrix
             {
                 pathFileInput = Files[i].Name;
                 pathFileOutput = "OutC" + Files[i].Name;
-                pathFileExpect =pathExpect+"/"+ "result" + i+1 + ".txt";
+                int index = i + 1;
+                pathFileExpect =pathExpect+"/"+ "result" + index + ".txt";
                 RunCommand("cd " + pathTestCase + "&& ./run " + pathFileInput + " " + pathFileOutput);
                 md5FileExpect = CalculateMD5(pathFileExpect);
                 md5FileOutput = CalculateMD5(pathTestCase+"/"+ pathFileOutput);
@@ -81,22 +82,5 @@ namespace TestLargestRectangleInBinaryMatrix
             Assert.Pass();
         }
 
-        [Test]
-        public void TestPython()
-        {
-
-            RunCommand("cd / &&cd /root/project/LargestRectangleInBinaryMatrixPy");
-            RunCommand("pwd");
-            Assert.Pass();
-        }
-
-        [Test]
-        public void TestJava()
-        {
-
-            RunCommand("cd /root/project/LargestRectangleInBinaryMatrixJava");
-            RunCommand("pwd");
-            Assert.Pass();
-        }
     }
 }
