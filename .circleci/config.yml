@@ -20,4 +20,4 @@ jobs:
           command : java -version && cd /root/project/LargestRectangleInBinaryMatrixJava/src/com/company && javac Main.java
       - run:
           name: test
-          command :cd /root/project && dotnet restore&& dotnet build&& dotnet test TestLargestRectangleInBinaryMatrix/TestLargestRectangleInBinaryMatrix.csproj
+          command : cd /root/project && dotnet restore&& dotnet build&& dotnet test TestLargestRectangleInBinaryMatrix/TestLargestRectangleInBinaryMatrix.csproj
