@@ -7,7 +7,6 @@ def _max_hist(row, lengthRow,r,x1,y1 ,x2 ,y2 ,maxSize):
   tempPos = -100
   height = -100
   i = 0
-  print(row)
   for i in range(0,lengthRow):
     height = row[i]
     if len( heightStack)==0:
@@ -59,7 +58,6 @@ input=open(sys.argv[1],"r")
 storeInput=input.readlines()
 input.close()
 count=int(storeInput[0])
-print(storeInput[1].split())
 
 for i in range(1,count+1):
     strArr=[int(item) for item in storeInput[i].split()]
@@ -90,8 +88,7 @@ for i in range(0,count):
     maxSize = result[4]
 output= open(sys.argv[2],"w+")
 
-output.write(str( x1)+" "+str( y1)+" \n"+str( x2)+" "+str( y2))
+output.write(str( x1)+" "+str( y1)+"\n"+str( x2)+" "+str( y2))
 output.close()
-print(str( x1)+" "+str( y1)+" \n"+str( x2)+" "+str( y2))
 #for i in range(0,count):
 #    print(input.readline())

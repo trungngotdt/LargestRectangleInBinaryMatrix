@@ -1,4 +1,4 @@
-package com.company;
+//package com.company;
 
 import java.io.*;
 import java.util.*;
@@ -91,9 +91,11 @@ public class Main {
             length = arraySt.length;
             for (int j = 0; j < length; j++) {
                 int temp = Integer.parseInt(arraySt[j]);
-                result[i][j] =i!=0&& result[i][j]!=0 ?result[i-1][j]+1:temp;
+                result[i][j] = i != 0 && temp != 0 ? result[i - 1][j] + 1 : temp;
             }
         }
+        br.close();
+
         return result;
     }
 
@@ -103,41 +105,48 @@ public class Main {
                 BufferedWriter bw = new BufferedWriter(writer)) {
 
             bw.write(content);
-
+            bw.close();
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        int[][] matrix = ReadFile(args[1]);
+    public static void main(String[] args) {
 
-        int r = 0;
-        int x1 = 0;
-        int y1 = 0;
-        int x2 = 0;
-        int y2 = 0;
-        int maxSize = Integer.MIN_VALUE;
+        try {
+            int[][] matrix = ReadFile(args[0]);
+            int r = 0;
+            int x1 = 0;
+            int y1 = 0;
+            int x2 = 0;
+            int y2 = 0;
+            int maxSize = Integer.MIN_VALUE;
 
-        for (int[] item :matrix) {
-            int[] maxRectangle = _max_hist(item, r, x1, y1, x2, y2, maxSize);
-            r++;
-            x1 = maxRectangle[0];
-            y1 = maxRectangle[1];
-            x2 = maxRectangle[2];
-            y2 = maxRectangle[3];
-            maxSize = maxRectangle[4];
+            for (int[] item : matrix) {
+                int[] maxRectangle = _max_hist(item, r, x1, y1, x2, y2, maxSize);
+                r++;
+                x1 = maxRectangle[0];
+                y1 = maxRectangle[1];
+                x2 = maxRectangle[2];
+                y2 = maxRectangle[3];
+                maxSize = maxRectangle[4];
+            }
+            StringBuilder builder = new StringBuilder();
+            builder.append(x1);
+            builder.append(' ');
+            builder.append(y1);
+            builder.append("\n");
+            builder.append(x2);
+            builder.append(' ');
+            builder.append(y2);
+            String content = builder.toString();
+            WriteFile(args[1], content);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        StringBuilder builder = new StringBuilder();
-        builder.append(x1);
-        builder.append(' ');
-        builder.append(y1);
-        builder.append("\n");
-        builder.append(x2);
-        builder.append(' ');
-        builder.append(y2);
-        String content = builder.toString();
-        WriteFile(args[2],content);
+
+
         //System.out.println("a");
     }
 }

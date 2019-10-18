@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test1.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="test2.txt">
-      <Filter>Source Files</Filter>
-    </Text>
     <Text Include="Readme.txt">
       <Filter>Source Files</Filter>
     </Text>

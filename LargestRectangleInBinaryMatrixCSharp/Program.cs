@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace LargestRectangleInBinaryMatrixCSharp
 {
@@ -90,8 +92,26 @@ namespace LargestRectangleInBinaryMatrixCSharp
 
             return new int[] { x1, y1, x2, y2, maxSize };
         }
+        private static string CreateRowTableString(string[] para)
+        {
+            StringBuilder builder = new StringBuilder();
+            int length = para.Count();
+            for (int i = 0; i < length; i++)
+            {
+                builder.Append("|");
+                var countChar = para[i].Count();
+                int padLeft = (12 - countChar) / 2;
+                int padRight = ((12 - countChar) % 2) == 0 ? padLeft : padLeft + 1;
+                builder.Append(para[i].PadLeft(padLeft).PadRight(padRight));
+            }
+            builder.Append("|");
+
+            return builder.ToString();
+        }
         public static void Main(string[] args)
         {
+            var barTop = CreateRowTableString(new string[] { "File", "Case", "Result", "Details" });
+            var cc = "echo \"|\"";
             int[][] A = new int[][]
             {
                 new int[] {0, 1, 1, 0},

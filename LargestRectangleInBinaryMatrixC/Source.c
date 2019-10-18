@@ -158,7 +158,7 @@ int** ReadFileAndTranfer(const char* filename)
 		for (j = 0; j < count; j++)
 		{
 			fscanf(in, "%d", &temp);
-			array[i][j] = i != 0 && array[i][j] != 0 ? array[i - 1][j] + 1 : temp;
+			array[i][j] = i != 0 && temp!= 0 ? array[i - 1][j] + 1 : temp;
 		}
 	}
 	fclose(in);
