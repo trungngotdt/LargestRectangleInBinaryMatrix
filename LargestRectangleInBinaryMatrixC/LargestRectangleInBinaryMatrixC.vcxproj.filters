@@ -20,10 +20,13 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LargestRectangleInBinaryMatrixC.cpp">
+    <ClCompile Include="Source.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.c">
+    <ClCompile Include="LargestRectangleInBinaryMatrixC.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

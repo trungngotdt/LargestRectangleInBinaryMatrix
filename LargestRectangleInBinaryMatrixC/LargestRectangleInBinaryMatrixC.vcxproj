@@ -151,8 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LargestRectangleInBinaryMatrixC.cpp" />
+    <ClCompile Include="LargestRectangleInBinaryMatrixC.c" />
     <ClCompile Include="Source.c" />
+    <ClCompile Include="Source2.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Readme.txt" />

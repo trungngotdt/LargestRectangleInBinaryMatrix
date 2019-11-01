@@ -1,20 +1,13 @@
-// LargestRectangleInBinaryMatrixC.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
 #include <limits.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
 
-// A structure to represent a stack 
 struct Stack {
 	int top;
 	unsigned capacity;
 	int* array;
 };
 
-// function to create a stack of given capacity. It initializes size of 
-// stack as 0 
 struct Stack* createStack(unsigned capacity)
 {
 	struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
@@ -24,19 +17,20 @@ struct Stack* createStack(unsigned capacity)
 	return stack;
 }
 
-// Stack is full when top is equal to the last index 
 int isFull(struct Stack* stack)
 {
 	return stack->top == stack->capacity - 1;
 }
 
-// Stack is empty when top is equal to -1 
 int isEmpty(struct Stack* stack)
 {
-	return stack->top == -1;
+	if (stack->top == -1)
+	{
+		return 1;
+	}
+	return 0;
 }
 
-// Function to add an item to stack.  It increases top by 1 
 void push(struct Stack* stack, int item)
 {
 	if (isFull(stack))
@@ -44,7 +38,6 @@ void push(struct Stack* stack, int item)
 	stack->array[++stack->top] = item;
 }
 
-// Function to remove an item from stack.  It decreases top by 1 
 int pop(struct Stack* stack)
 {
 	if (isEmpty(stack))
@@ -52,50 +45,36 @@ int pop(struct Stack* stack)
 	return stack->array[stack->top--];
 }
 
-// Function to return the top from stack without removing it 
 int peek(struct Stack* stack)
 {
-	if (isEmpty(stack))
+	if (isEmpty(stack) == 1)
 		return INT_MIN;
 	return stack->array[stack->top];
 }
 
-bool canPeek(struct Stack* stack)
+int canPeek(struct Stack* stack)
 {
 	if (isEmpty(stack))
 	{
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
-	/// <summary>
-	  ///         y
-	  ///     +--------->
-	  ///  x  |
-	  ///     |
-	  ///     |
-	  ///    \|/
-	  ///     v
-	  /// index 0:x1
-	  /// index 1:y1
-	  /// index 2:x2
-	  /// index 3:y2
-	  /// index 4:max size
-	  /// </summary>
-int* _max_hist(int* row, int lengthRow, int r = 0, int x1 = 0, int y1 = 0, int x2 = 0, int y2 = 0, int maxSize = INT32_MIN)
+
+int* _max_hist(int* row, int lengthRow, int r, int x1, int y1, int x2, int y2, int maxSize)
 {
 	int* result;
 	struct Stack* heightStack = createStack(lengthRow);
 	struct Stack* positionStack = createStack(lengthRow);
 	int size = 0;
-	int tempH = INT32_MIN;
-	int tempPos = INT32_MIN;
-	int height = INT32_MIN;
+	int tempH = -100;
+	int tempPos = -100;
+	int height = -100;
 	int i = 0;
 	for (i = 0; i < lengthRow; i++)
 	{
 		height = row[i];
-		if (isEmpty(heightStack))
+		if (isEmpty(heightStack) == 1)
 		{
 			push(heightStack, row[i]);
 			push(positionStack, i);
@@ -123,7 +102,7 @@ int* _max_hist(int* row, int lengthRow, int r = 0, int x1 = 0, int y1 = 0, int x
 						x1 = r - tempH + 1;
 						y1 = tempPos;
 					}
-					if (isEmpty(heightStack))
+					if (isEmpty(heightStack) == 1)
 					{
 						break;
 					}
@@ -134,7 +113,7 @@ int* _max_hist(int* row, int lengthRow, int r = 0, int x1 = 0, int y1 = 0, int x
 			}
 		}
 	}
-	while (!isEmpty(heightStack))
+	while (isEmpty(heightStack) == 0)
 	{
 		tempH = pop(heightStack);
 		tempPos = pop(positionStack);
@@ -148,6 +127,8 @@ int* _max_hist(int* row, int lengthRow, int r = 0, int x1 = 0, int y1 = 0, int x
 			y1 = tempPos;
 		}
 	}
+	free(heightStack->array);
+	free(positionStack->array);
 	result = (int*)malloc(5 * sizeof(int));
 	result[0] = x1;
 	result[1] = y1;
@@ -160,7 +141,6 @@ int* _max_hist(int* row, int lengthRow, int r = 0, int x1 = 0, int y1 = 0, int x
 int** ReadFileAndTranfer(const char* filename)
 {
 
-#pragma warning (disable : 4996)
 
 	int c, temp, count = 0, i = 0, j = 0;
 	int** array;
@@ -178,21 +158,21 @@ int** ReadFileAndTranfer(const char* filename)
 		for (j = 0; j < count; j++)
 		{
 			fscanf(in, "%d", &temp);
-			array[i][j] =i!=0&& array[i][j]!=0 ?array[i-1][j]+1:temp;
+			array[i][j] = i != 0 && temp != 0 ? array[i - 1][j] + 1 : temp;
 		}
 	}
 	fclose(in);
 	return array;
 }
-int maina(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
-	
-	const char* filename = "test1.txt";
-#pragma warning (disable : 4996)
-
+	int* result;
+	const char* filename = argv[1];
+	FILE* out;
 	int temp, count = 0, i = 0, j = 0;
 	int** array;
 	FILE* in;
+	int r = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0, maxSize = -100;
 	in = fopen(filename, "r");
 	fscanf(in, "%d", &count);
 	array = (int**)malloc(count * count * sizeof(int*));
@@ -210,11 +190,11 @@ int maina(int argc, char* argv[])
 	}
 	fclose(in);
 
-	int r = 0; int x1 = 0; int y1 = 0; int x2 = 0; int y2 = 0; int maxSize = INT32_MIN;
+
 	for (i = 0; i < count; i++)
 	{
 
-		int* result = _max_hist(array[i], count, r, x1, y1, x2, y2, maxSize);
+		result = _max_hist(array[i], count, r, x1, y1, x2, y2, maxSize);
 		r++;
 		x1 = result[0];
 		y1 = result[1];
@@ -222,17 +202,15 @@ int maina(int argc, char* argv[])
 		y2 = result[3];
 		maxSize = result[4];
 	}
+	free(array);
+	free(result);
 
 
-	FILE* out;
 
-	out = fopen("out.txt", "w+");
-	fprintf(out, "%d %d\n%d %d",x1,y1,x2,y2);
+
+	out = fopen(argv[2], "w+");
+	fprintf(out, "%d %d\n%d %d", x1, y1, x2, y2);
 	fclose(out);
-	
-	
-
-
 
 	return 0;
 }
