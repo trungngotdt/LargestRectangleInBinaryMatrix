@@ -132,13 +132,7 @@ public class Main {
                 maxSize = maxRectangle[4];
             }
             StringBuilder builder = new StringBuilder();
-            builder.append(x1);
-            builder.append(' ');
-            builder.append(y1);
-            builder.append("\n");
-            builder.append(x2);
-            builder.append(' ');
-            builder.append(y2);
+            builder.append(maxSize);
             String content = builder.toString();
             WriteFile(args[1], content);
 

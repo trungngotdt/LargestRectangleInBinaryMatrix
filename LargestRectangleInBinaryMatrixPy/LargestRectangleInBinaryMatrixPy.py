@@ -88,7 +88,7 @@ for i in range(0,count):
     maxSize = result[4]
 output= open(sys.argv[2],"w+")
 
-output.write(str( x1)+" "+str( y1)+"\n"+str( x2)+" "+str( y2))
+output.write(str( maxSize))
 output.close()
 #for i in range(0,count):
 #    print(input.readline())

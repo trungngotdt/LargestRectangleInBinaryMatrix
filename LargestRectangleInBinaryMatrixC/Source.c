@@ -209,7 +209,7 @@ int main(int argc, char* argv[])
 	
 
 	out = fopen(argv[2], "w+");
-	fprintf(out, "%d %d\n%d %d", x1, y1, x2, y2);
+	fprintf(out, "%d", maxSize);
 	fclose(out);
 	
 	return 0;
