@@ -50,7 +50,7 @@ def checkRectangular(inFile, outFile):
             if a[row][col] == 1 and a[row-1][col] == 1:
                 arr_row[count1] = arr_row[count1] + 1
             arr_count_row[count] = max(arr_row)
-            print("",arr_count_row[count])
+            #print("",arr_count_row[count])
         count = count + 1
 
     #ARR_LIST_COL DUNG DE CHUA SO CAP SO 1 GIUA 2 COT
@@ -67,8 +67,8 @@ def checkRectangular(inFile, outFile):
             arr_count_col[count] = max(arr_col)
         count = count + 1
     
-    print('Arr Count Row:', arr_count_row[0:])
-    print('Arr Count Column:', arr_count_col[0:])
+    #print('Arr Count Row:', arr_count_row[0:])
+    #print('Arr Count Column:', arr_count_col[0:])
     #KIEM TRA SO LAN LAP CUA MAX TRONG 2 MANG
     dup_c = 2
     dup_r = 2
@@ -83,7 +83,7 @@ def checkRectangular(inFile, outFile):
     S1 = max(arr_count_row) * dup_r
     S2 = max(arr_count_col) * dup_c
 
-    print(S1, S2)
+    #print(S1, S2)
 
     #TRUONG HOP HCN CO CHIEU DAI HOAC CHIEU RONG BANG 1
     row_ = []
@@ -101,8 +101,8 @@ def checkRectangular(inFile, outFile):
             if a[row][col] == 1:
                 col_[col] = col_[col] + 1
     
-    print(row_[0:])
-    print(col_[0:])
+    #print(row_[0:])
+    #print(col_[0:])
     
     if max(row_) > S1 and max(row_) > S2 or max(col_) > S1 and max(col_) > S2:
         if max(row_) >= max(col_):
