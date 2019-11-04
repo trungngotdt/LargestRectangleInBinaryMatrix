@@ -165,7 +165,7 @@ namespace TestLargestRectangleInBinaryMatrix
 
             RunCommand("echo Hieu Test Py");
             RunCommand($"cd {pathTestCase} && rm *.py");
-            string commandRun = "python3  Main.py";//LargestRectangleInBinaryMatrixPy.py ";
+            string commandRun = "python3  Main.py ";//LargestRectangleInBinaryMatrixPy.py ";
             string commandBuild = $"cp Main.py {pathTestCase}";//LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
             string typeLanguage = "OutPy";
             RunTest(commandBuild, pathSourcePy, typeLanguage, commandRun);
