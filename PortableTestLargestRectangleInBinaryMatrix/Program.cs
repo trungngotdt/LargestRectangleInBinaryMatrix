@@ -7,26 +7,35 @@ using System.Text;
 
 namespace PortableTestLargestRectangleInBinaryMatrix
 {
-    
+
 
     class Program
     {
         static readonly string pathCurrent = AppDomain.CurrentDomain.BaseDirectory;
-        static readonly string pathTestCase =pathCurrent + @"/TestCases";
-        static readonly string pathExpect =pathCurrent+ @"/Expect";
+        static readonly string pathTestCase = pathCurrent + @"/TestCases";
+        static readonly string pathExpect = pathCurrent + @"/Expect";
         static readonly string pathSourceC = pathCurrent;
         static readonly string pathSourcePy = pathCurrent;
         static readonly string pathSourceJava = pathCurrent;
-
+        static Process process = null;
+        static ProcessStartInfo startInfo =null;
         private static void RunCommand(string cmd)
         {
-            Process process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "/bin/bash";
-            startInfo.Arguments = $"-c \"{cmd}\"";
-            startInfo.RedirectStandardError = true;
-            process.StartInfo = startInfo;
+            if (process != null && startInfo != null)
+            {
+                startInfo.Arguments = $"-c \"{cmd}\"";
+            }
+            else
+            {
+                process = new Process();
+                startInfo = new ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = @"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe";
+                startInfo.Arguments = $"-c \"{cmd}\"";
+                startInfo.RedirectStandardError = true;
+                process.StartInfo = startInfo;
+            }
+
 
             process.Start();
             string error = process.StandardError.ReadToEnd();
@@ -76,10 +85,10 @@ namespace PortableTestLargestRectangleInBinaryMatrix
 
         static void RunTest(string commandBuild, string pathSourceCode, string typeLanguage, string commandRunProgram)
         {
-            RunCommand($"cd {pathTestCase} && rm Out*");
-            RunCommand($"cd {pathSourceCode} && {commandBuild}");
+            RunCommand($"cd {pathTestCase} ; Remove-Item Out*");
+            RunCommand($"cd {pathSourceCode} ; {commandBuild}");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
-            
+
             FileInfo[] Files = d.GetFiles("*.txt");
             var totalFile = Files.Length;
             string pathFileInput = String.Empty;
@@ -101,7 +110,7 @@ namespace PortableTestLargestRectangleInBinaryMatrix
                 pathFileExpect = pathExpect + "/" + "result" + index + ".txt";
                 try
                 {
-                    RunCommand("cd " + pathTestCase + "&&" + commandRunProgram + pathFileInput + " " + pathFileOutput);
+                    RunCommand("cd " + pathTestCase + ";" + commandRunProgram + pathFileInput + " " + pathFileOutput);
                     var testResult = File.ReadAllLines(pathFileExpect).SequenceEqual(File.ReadAllLines(pathTestCase + "/" + pathFileOutput));
                     para.AddRange(new string[] { pathFileInput, (i + 1).ToString(), testResult.ToString(), "" });
                     if (!testResult)
@@ -127,42 +136,45 @@ namespace PortableTestLargestRectangleInBinaryMatrix
         {
 
             RunCommand("echo Test Java");
-            RunCommand($"cd {pathSourceJava} && rm *.class && cd {pathTestCase} && rm *.class");
+            RunCommand($"cd {pathSourceJava} ; Remove-Item *.class ; cd {pathTestCase} ; Remove-Item *.class");
             string commandRun = "java Main ";
-            string commandBuild = $"javac Main.java && cp Main.class {pathTestCase}";
+            string commandBuild = $"javac Main.java ; cp Main.class {pathTestCase}";
             string typeLanguage = "OutJava";
             RunTest(commandBuild, pathSourceJava, typeLanguage, commandRun);
-            RunCommand($"cd {pathSourceJava} && rm *.class");
-            RunCommand($"cd {pathTestCase} && rm *.class");
+            RunCommand($"cd {pathSourceJava} ; Remove-Item *.class");
+            RunCommand($"cd {pathTestCase} ; Remove-Item *.class");
         }
 
         public static void TestPy()
         {
 
             RunCommand("echo Hieu Test Py");
-            RunCommand($"cd {pathTestCase} && rm *.py");
-            string commandRun = "python3  Main.py ";//LargestRectangleInBinaryMatrixPy.py ";
-            string commandBuild = $"cp Main.py {pathTestCase}";//LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
+            RunCommand($"cd {pathTestCase} ; Remove-Item *.py");
+            string commandRun = "python  LargestRectangleInBinaryMatrixPy.py ";
+            string commandBuild = $"copy LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
             string typeLanguage = "OutPy";
             RunTest(commandBuild, pathSourcePy, typeLanguage, commandRun);
-            RunCommand($"cd {pathTestCase} && rm *.py");
+            RunCommand($"cd {pathTestCase} ; Remove-Item *.py");
         }
         public static void TestC()
         {
 
             RunCommand("echo Test C");
-            RunCommand($"cd {pathSourceC} && rm run &&cd {pathTestCase} && rm run");
+            RunCommand($"cd {pathSourceC} ; Remove-Item run ;cd {pathTestCase} ; Remove-Item run");
             string commandRun = "./run ";
-            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic Source.c -o run && cp run {pathTestCase}";
+            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic Source.c -o run ; cp run {pathTestCase}";
             string typeLanguage = "OutC";
             RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
-            RunCommand($"cd {pathSourceC} && rm run &&cd {pathTestCase} && rm run");
+            RunCommand($"cd {pathSourceC} ; Remove-Item run ;cd {pathTestCase} ; Remove-Item run");
         }
         static void Main(string[] args)
         {
+            //RunCommand("ls");
             TestJava();
             TestPy();
-            TestC();
+            //TestC();
+            Console.WriteLine("Press enter to close...");
+            Console.ReadLine();
         }
     }
 }
