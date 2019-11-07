@@ -102,7 +102,7 @@ public class Main {
             ArrayList list = ReadFile(args[0]);
             int[][] matrix=(int[][])list.get(0);
             int maxSize=(int)list.get(1);
-            findMax(matrix,maxSize,matrix[0].length);
+            maxSize= findMax(matrix,maxSize,matrix[0].length);
             StringBuilder builder = new StringBuilder();
             builder.append(maxSize);
             String content = builder.toString();

@@ -40,20 +40,7 @@ namespace TestLargestRectangleInBinaryMatrix
         public void Setup()
         {
         }
-
-        string CalculateMD5(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    var hash= md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
-            }
-        }
-
-
+        
         private string CreateRowTableString(string[] para)
         {
             StringBuilder builder = new StringBuilder();
@@ -101,8 +88,6 @@ namespace TestLargestRectangleInBinaryMatrix
             string pathFileInput = String.Empty;
             string pathFileOutput = String.Empty;
             string pathFileExpect = String.Empty;
-            string md5FileOutput = String.Empty;
-            string md5FileExpect = String.Empty;
             List<string> para;
             var bar = CreateBarTableString(53);
             RunCommand($"echo {bar}");
@@ -143,8 +128,8 @@ namespace TestLargestRectangleInBinaryMatrix
             Assert.IsTrue(countFalse == 0);
         }
 
-        //[Test]
-        //[Order(3)]
+        [Test]
+        [Order(3)]
         public void TestJava()
         {
 
@@ -158,9 +143,25 @@ namespace TestLargestRectangleInBinaryMatrix
             RunCommand($"cd {pathTestCase} && rm *.class");
         }
 
+
         [Test]
-        [Order(2)]
+        [Order(1)]
         public void TestPy()
+        {
+
+            RunCommand("echo Test Py");
+            RunCommand($"cd {pathTestCase} && rm *.py");
+            string commandRun = "python3  LargestRectangleInBinaryMatrixPy.py ";
+            string commandBuild = $"cp LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
+            string typeLanguage = "OutPy";
+            RunTest(commandBuild, pathSourcePy, typeLanguage, commandRun);
+            RunCommand($"cd {pathTestCase} && rm *.py");
+        }
+
+
+        //[Test]
+        //[Order(4)]
+        public void TestHieuPy()
         {
 
             RunCommand("echo Hieu Test Py");

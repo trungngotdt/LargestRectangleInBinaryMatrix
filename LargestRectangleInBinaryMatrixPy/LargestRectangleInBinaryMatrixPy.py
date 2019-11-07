@@ -1,57 +1,33 @@
 import sys
-def _max_hist(row, lengthRow,r,x1,y1 ,x2 ,y2 ,maxSize):
-  heightStack=[]
-  positionStack=[]
-  size = 0
-  tempH =-100
-  tempPos = -100
-  height = -100
-  i = 0
-  for i in range(0,lengthRow):
-    height = row[i]
-    if len( heightStack)==0:
-      heightStack.append(row[i])
-      positionStack.append(i)
-    else:
-      if height > heightStack[-1]:
-        heightStack.append( row[i])
-        positionStack.append( i)
-      else:
-        tempPos = i
-        while height < heightStack[-1]:
-        
-          tempH = heightStack.pop()
-          tempPos = positionStack.pop()
-          size = tempH * (i - tempPos)
-          if maxSize < size:          
-            maxSize = size
-            y2 = i - 1
-            x2 = r
-            x1 = r - tempH + 1
-            y1 = tempPos          
-          if len( heightStack)==0:
+def findMax(matrix, max, length):
+    maxLocal=0
+    step = 1
+    i=0
+    j = 0
+    while i < length:
+        maxLocal = 0
+        if i == (length - step):
+            step=step+1
+            i = 0
+        if length == step:
             break
-        heightStack.append( row[i])
-        positionStack.append(tempPos)
-  i=i+1
-  while len( heightStack)!=0:
-    tempH = heightStack.pop()
-    tempPos = positionStack.pop()
-    size = tempH * (i - tempPos)
-    if maxSize < size:    
-      maxSize = size
-      y2 = i - 1
-      x2 = r
-      x1 = r - tempH + 1
-      y1 = tempPos  
-	
-  result=[0]*5
-  result[0] = x1
-  result[1] = y1
-  result[2] = x2
-  result[3] = y2
-  result[4] = maxSize
-  return result
+        j=0
+        while j<length:            
+            if matrix[i][j] == step and matrix[i + 1][j] == step:
+                matrix[i][j] = step + 1
+                maxLocal =maxLocal+ matrix[i][j]
+            else :
+                if maxLocal > max:
+                    max = maxLocal
+                matrix[i][j] = 0
+                maxLocal = 0
+            j=j+1
+        if maxLocal > max:
+            max = maxLocal
+        i=i+1
+       
+    
+    return max
 
 array=[]
 input=open(sys.argv[1],"r")
@@ -64,31 +40,22 @@ for i in range(1,count+1):
     #print(strArr)
     array.append(strArr)
 
+max=0
+
 for i in range(0,count):
+    tempMax = 0
     for j in range(0,count):
-        if i!=0 and array[i][j]!=0:
-            array[i][j]=array[i-1][j]+1
+        if array[i][j]==1:
+            tempMax = tempMax + 1
         else:
-            array[i][j]=array[i][j]
+            tempMax = 0
+        if tempMax>max:
+            max = tempMax
 
-r = 0
-x1 = 0
-y1 = 0
-x2 = 0
-y2 = 0
-maxSize = -100
-
-for i in range(0,count):
-    result = _max_hist(array[i], count, r, x1, y1, x2, y2, maxSize)
-    r=r+1
-    x1 = result[0]
-    y1 = result[1]
-    x2 = result[2]
-    y2 = result[3]
-    maxSize = result[4]
+max=findMax(array,max,count)
 output= open(sys.argv[2],"w+")
 
-output.write(str( maxSize))
+output.write(str( max))
 output.close()
 #for i in range(0,count):
 #    print(input.readline())
