@@ -1,24 +1,24 @@
-using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Security.Cryptography;
 using System.Text;
 
-namespace TestLargestRectangleInBinaryMatrix
+namespace PortableTestLargestRectangleInBinaryMatrix
 {
-    public class Tests
+    
+
+    class Program
     {
-        private string pathTestCase = @"/root/project/TestLargestRectangleInBinaryMatrix/TestCases";
-        private string pathExpect = @"/root/project/TestLargestRectangleInBinaryMatrix/Expect";
-        private string pathSourceC = @"/root/project/LargestRectangleInBinaryMatrixC";
-        private string pathSourcePy = @"/root/project/LargestRectangleInBinaryMatrixPy";
-        private string pathSourceJava = @"/root/project/LargestRectangleInBinaryMatrixJava/src/com/company";
+        static readonly string pathCurrent = AppDomain.CurrentDomain.BaseDirectory;
+        static readonly string pathTestCase =pathCurrent + @"/TestCases";
+        static readonly string pathExpect =pathCurrent+ @"/Expect";
+        static readonly string pathSourceC = pathCurrent;
+        static readonly string pathSourcePy = pathCurrent;
+        static readonly string pathSourceJava = pathCurrent;
 
-
-        private void RunCommand(string cmd)
+        private static void RunCommand(string cmd)
         {
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -27,34 +27,17 @@ namespace TestLargestRectangleInBinaryMatrix
             startInfo.Arguments = $"-c \"{cmd}\"";
             startInfo.RedirectStandardError = true;
             process.StartInfo = startInfo;
-            
+
             process.Start();
             string error = process.StandardError.ReadToEnd();
-            if (!(String.IsNullOrEmpty(error)||String.IsNullOrWhiteSpace(error)))
+            if (!(String.IsNullOrEmpty(error) || String.IsNullOrWhiteSpace(error)))
             {
                 RunCommand($"echo 'Error : {error}'");
             }
             process.WaitForExit();
         }
-        [SetUp]
-        public void Setup()
-        {
-        }
 
-        string CalculateMD5(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(filename))
-                {
-                    var hash= md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
-            }
-        }
-
-
-        private string CreateRowTableString(string[] para)
+        private static string CreateRowTableString(string[] para)
         {
             StringBuilder builder = new StringBuilder();
             int length = para.Count();
@@ -64,13 +47,13 @@ namespace TestLargestRectangleInBinaryMatrix
                 var countChar = para[i].Count();
                 int padLeft = (12 - countChar) / 2;
                 int padRight = ((12 - countChar) % 2) == 0 ? padLeft : padLeft + 1;
-                builder.Append(para[i].PadLeft(padLeft+countChar).PadRight(12));
+                builder.Append(para[i].PadLeft(padLeft + countChar).PadRight(12));
             }
             builder.Append("|");
-            
+
             return builder.ToString();
         }
-        private string ReadFileContent(string path)
+        private static string ReadFileContent(string path)
         {
             var lines = File.ReadAllLines(path);
             StringBuilder builder = new StringBuilder();
@@ -80,7 +63,7 @@ namespace TestLargestRectangleInBinaryMatrix
             }
             return builder.ToString();
         }
-        private string CreateBarTableString(int size)
+        private static string CreateBarTableString(int size)
         {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < size; i++)
@@ -91,18 +74,17 @@ namespace TestLargestRectangleInBinaryMatrix
             return builder.ToString();
         }
 
-        void RunTest(string commandBuild,string pathSourceCode,string typeLanguage,string commandRunProgram)
+        static void RunTest(string commandBuild, string pathSourceCode, string typeLanguage, string commandRunProgram)
         {
             RunCommand($"cd {pathTestCase} && rm Out*");
             RunCommand($"cd {pathSourceCode} && {commandBuild}");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
+            
             FileInfo[] Files = d.GetFiles("*.txt");
             var totalFile = Files.Length;
             string pathFileInput = String.Empty;
             string pathFileOutput = String.Empty;
             string pathFileExpect = String.Empty;
-            string md5FileOutput = String.Empty;
-            string md5FileExpect = String.Empty;
             List<string> para;
             var bar = CreateBarTableString(53);
             RunCommand($"echo {bar}");
@@ -113,16 +95,15 @@ namespace TestLargestRectangleInBinaryMatrix
             {
                 int index = i + 1;
                 para = new List<string>();
-                pathFileInput = "test" +index + ".txt";// Files[i].Name;
-                //RunCommand($"echo {pathFileInput}");
-                pathFileOutput = typeLanguage + Files[i].Name; //"OutC" + Files[i].Name;
-                
+                pathFileInput = "test" + index + ".txt";
+                pathFileOutput = typeLanguage + Files[i].Name;
+
                 pathFileExpect = pathExpect + "/" + "result" + index + ".txt";
                 try
                 {
                     RunCommand("cd " + pathTestCase + "&&" + commandRunProgram + pathFileInput + " " + pathFileOutput);
                     var testResult = File.ReadAllLines(pathFileExpect).SequenceEqual(File.ReadAllLines(pathTestCase + "/" + pathFileOutput));
-                    para.AddRange( new string[] { pathFileInput, (i + 1).ToString(), testResult.ToString(),"" });
+                    para.AddRange(new string[] { pathFileInput, (i + 1).ToString(), testResult.ToString(), "" });
                     if (!testResult)
                     {
                         para.Add("Expect : " + ReadFileContent(pathFileExpect) + " Actual : " + ReadFileContent(pathTestCase + "/" + pathFileOutput));
@@ -133,19 +114,16 @@ namespace TestLargestRectangleInBinaryMatrix
                 }
                 catch (Exception ex)
                 {
-                    para.AddRange(  new string[] { pathFileInput, (i + 1).ToString(), "False",ex.ToString() });
+                    para.AddRange(new string[] { pathFileInput, (i + 1).ToString(), "False", ex.ToString() });
                     var row = CreateRowTableString(para.ToArray());
                     RunCommand($"echo '{row}'");
                     countFalse++;
                 }
             }
             RunCommand($"echo {bar}");
-            Assert.IsTrue(countFalse == 0);
         }
 
-        //[Test]
-        //[Order(3)]
-        public void TestJava()
+        public static void TestJava()
         {
 
             RunCommand("echo Test Java");
@@ -158,9 +136,7 @@ namespace TestLargestRectangleInBinaryMatrix
             RunCommand($"cd {pathTestCase} && rm *.class");
         }
 
-        [Test]
-        [Order(2)]
-        public void TestPy()
+        public static void TestPy()
         {
 
             RunCommand("echo Hieu Test Py");
@@ -171,10 +147,7 @@ namespace TestLargestRectangleInBinaryMatrix
             RunTest(commandBuild, pathSourcePy, typeLanguage, commandRun);
             RunCommand($"cd {pathTestCase} && rm *.py");
         }
-
-        [Test]
-        [Order(1)]
-        public void TestC()
+        public static void TestC()
         {
 
             RunCommand("echo Test C");
@@ -185,6 +158,11 @@ namespace TestLargestRectangleInBinaryMatrix
             RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
             RunCommand($"cd {pathSourceC} && rm run &&cd {pathTestCase} && rm run");
         }
-
+        static void Main(string[] args)
+        {
+            TestJava();
+            TestPy();
+            TestC();
+        }
     }
 }
