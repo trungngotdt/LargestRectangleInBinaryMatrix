@@ -5,7 +5,7 @@
 
 int findMax(int** matrix, int max, int length)
 {
-	int maxLocal = 0;
+	int maxLocal;
 	int step = 1;
 	int i, j = 0;
 	for (i = 0; i < length; i++)
