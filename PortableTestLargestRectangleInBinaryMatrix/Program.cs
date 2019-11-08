@@ -104,8 +104,8 @@ namespace PortableTestLargestRectangleInBinaryMatrix
             for (int i = 0; i < totalFile; i++)
             {
                 int index = i + 1;
-                pathFileInput = "test" + index + ".txt";
-                pathFileOutput = typeLanguage + Files[i].Name;
+                pathFileInput =(typeLanguage.Equals("OutC")? pathTestCase:"") + "test" + index + ".txt";
+                pathFileOutput = (typeLanguage.Equals("OutC") ? pathTestCase : "") + typeLanguage + Files[i].Name;
                 runProgram.Append(commandRunProgram);
                 runProgram.Append(pathFileInput);
                 runProgram.Append(" ");
@@ -180,21 +180,30 @@ namespace PortableTestLargestRectangleInBinaryMatrix
         }
         public static void TestC()
         {
-
-            RunCommand("echo Test C");
-            RunCommand($"cd {pathSourceC} ; Remove-Item run ;cd {pathTestCase} ; Remove-Item run");
-            string commandRun = "./run ";
-            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic Source.c -o run ; Copy-Item run {pathTestCase}";
-            string typeLanguage = "OutC";
-            RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
-            RunCommand($"cd {pathSourceC} ; Remove-Item run ;cd {pathTestCase} ; Remove-Item run");
+            var linesOfFilePathGcc = File.ReadLines(pathCurrent + "pathGcc.txt");
+            string pathGcc=linesOfFilePathGcc.Any()?linesOfFilePathGcc.ElementAt(0):" ";
+            if (String.IsNullOrWhiteSpace( pathGcc))
+            {
+                RunCommand("Can't not find path of gcc!");
+            }
+            else
+            {
+                RunCommand("echo Test C");
+                RunCommand($"cd {pathSourceC} ; Remove-Item sourceOut.* ;cd {pathTestCase} ; Remove-Item sourceOut.*");
+                string commandRun = $"{pathGcc+@"\"}sourceOut.exe ";
+                string commandBuild = $"Copy-Item Source.c {pathGcc};cd {pathGcc};./gcc.exe -std=c90 -pedantic -g -rdynamic Source.c -o sourceOut.exe ;";
+                string typeLanguage = "OutC";
+                RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
+                RunCommand($"cd {pathGcc} ; Remove-Item sourceOut.* ; cd {pathSourceC} ; Remove-Item sourceOut.* ;cd {pathTestCase} ; Remove-Item sourceOut.*");
+            }
+            
         }
         static void Main(string[] args)
         {
             //RunCommand("ls");
-            TestJava();
-            TestPy();
-            //TestC();
+            //TestJava();
+            //TestPy();
+            TestC();
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();
         }
