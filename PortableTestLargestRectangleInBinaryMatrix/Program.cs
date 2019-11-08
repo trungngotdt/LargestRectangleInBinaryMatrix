@@ -12,8 +12,8 @@ namespace PortableTestLargestRectangleInBinaryMatrix
     class Program
     {
         static readonly string pathCurrent = AppDomain.CurrentDomain.BaseDirectory;
-        static readonly string pathTestCase = pathCurrent + @"/TestCases";
-        static readonly string pathExpect = pathCurrent + @"/Expect";
+        static readonly string pathTestCase = pathCurrent + @"TestCases";
+        static readonly string pathExpect = pathCurrent + @"Expect";
         static readonly string pathSourceC = pathCurrent;
         static readonly string pathSourcePy = pathCurrent;
         static readonly string pathSourceJava = pathCurrent;
@@ -64,7 +64,7 @@ namespace PortableTestLargestRectangleInBinaryMatrix
         }
         private static string ReadFileContent(string path)
         {
-            var lines = File.ReadAllLines(path);
+            var lines = File.ReadLines(path).ElementAt(0);
             StringBuilder builder = new StringBuilder();
             foreach (var item in lines)
             {
@@ -100,22 +100,44 @@ namespace PortableTestLargestRectangleInBinaryMatrix
             var barTop = CreateRowTableString(new string[] { "File", "Case", "Result", "Details" });
             RunCommand($"echo '{barTop}'");
             var countFalse = 0;
+            StringBuilder runProgram =new StringBuilder("cd " + pathTestCase + ";");
+            for (int i = 0; i < totalFile; i++)
+            {
+                int index = i + 1;
+                pathFileInput = "test" + index + ".txt";
+                pathFileOutput = typeLanguage + Files[i].Name;
+                runProgram.Append(commandRunProgram);
+                runProgram.Append(pathFileInput);
+                runProgram.Append(" ");
+                runProgram.Append(pathFileOutput);
+                if (i!=(totalFile-1))
+                {
+                    runProgram.Append(";");
+                }
+                
+            }
+            RunCommand(runProgram.ToString());
             for (int i = 0; i < totalFile; i++)
             {
                 int index = i + 1;
                 para = new List<string>();
                 pathFileInput = "test" + index + ".txt";
-                pathFileOutput = typeLanguage + Files[i].Name;
+                pathFileOutput = pathTestCase + @"\"+typeLanguage + Files[i].Name;
 
-                pathFileExpect = pathExpect + "/" + "result" + index + ".txt";
+                pathFileExpect = pathExpect + @"\" + "result" + index + ".txt";
                 try
                 {
-                    RunCommand("cd " + pathTestCase + ";" + commandRunProgram + pathFileInput + " " + pathFileOutput);
-                    var testResult = File.ReadAllLines(pathFileExpect).SequenceEqual(File.ReadAllLines(pathTestCase + "/" + pathFileOutput));
+                    if (!File.Exists(pathFileOutput))
+                    {
+                        para.Add("Output is not exist");
+                        countFalse++;
+                        continue;
+                    }
+                    var testResult = File.ReadLines(pathFileExpect).ElementAt(0).Equals(File.ReadLines(pathFileOutput).ElementAt(0));
                     para.AddRange(new string[] { pathFileInput, (i + 1).ToString(), testResult.ToString(), "" });
                     if (!testResult)
                     {
-                        para.Add("Expect : " + ReadFileContent(pathFileExpect) + " Actual : " + ReadFileContent(pathTestCase + "/" + pathFileOutput));
+                        para.Add("Expect : " + ReadFileContent(pathFileExpect) + " Actual : " + ReadFileContent(pathFileOutput));
                         countFalse++;
                     }
                     var row = CreateRowTableString(para.ToArray());
@@ -135,10 +157,10 @@ namespace PortableTestLargestRectangleInBinaryMatrix
         public static void TestJava()
         {
 
-            RunCommand("echo Test Java");
+            RunCommand("echo 'Test Java'");
             RunCommand($"cd {pathSourceJava} ; Remove-Item *.class ; cd {pathTestCase} ; Remove-Item *.class");
             string commandRun = "java Main ";
-            string commandBuild = $"javac Main.java ; cp Main.class {pathTestCase}";
+            string commandBuild = $"javac Main.java ; Copy-Item Main.class {pathTestCase}";
             string typeLanguage = "OutJava";
             RunTest(commandBuild, pathSourceJava, typeLanguage, commandRun);
             RunCommand($"cd {pathSourceJava} ; Remove-Item *.class");
@@ -148,7 +170,7 @@ namespace PortableTestLargestRectangleInBinaryMatrix
         public static void TestPy()
         {
 
-            RunCommand("echo Hieu Test Py");
+            RunCommand("echo 'Test Py'");
             RunCommand($"cd {pathTestCase} ; Remove-Item *.py");
             string commandRun = "python  LargestRectangleInBinaryMatrixPy.py ";
             string commandBuild = $"copy LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
@@ -162,7 +184,7 @@ namespace PortableTestLargestRectangleInBinaryMatrix
             RunCommand("echo Test C");
             RunCommand($"cd {pathSourceC} ; Remove-Item run ;cd {pathTestCase} ; Remove-Item run");
             string commandRun = "./run ";
-            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic Source.c -o run ; cp run {pathTestCase}";
+            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic Source.c -o run ; Copy-Item run {pathTestCase}";
             string typeLanguage = "OutC";
             RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
             RunCommand($"cd {pathSourceC} ; Remove-Item run ;cd {pathTestCase} ; Remove-Item run");
