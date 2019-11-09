@@ -80,6 +80,7 @@ namespace TestLargestRectangleInBinaryMatrix
 
         void RunTest(string commandBuild,string pathSourceCode,string typeLanguage,string commandRunProgram)
         {
+
             RunCommand($"cd {pathTestCase} && rm Out*");
             RunCommand($"cd {pathSourceCode} && {commandBuild}");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);

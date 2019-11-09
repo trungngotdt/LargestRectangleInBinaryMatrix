@@ -29,6 +29,31 @@ namespace LargestRectangleInBinaryMatrixCSharp
             }
         }
 
+        private static string CreateRowTableString(string[] para)
+        {
+            StringBuilder builder = new StringBuilder();
+            int length = para.Count();
+            for (int i = 0; i < length; i++)
+            {
+                builder.Append("|");
+                var countChar = para[i].Count();
+                int padLeft = (5 - countChar) / 2;
+                builder.Append(para[i].PadLeft(padLeft + countChar).PadRight(5));
+            }
+            builder.Append("|");
+
+            return builder.ToString();
+        }
+        private static string CreateBarTableString(int size)
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < size; i++)
+            {
+                builder.Append("-");
+            }
+
+            return builder.ToString();
+        }
         static int findLargestRectangle(int[][] array, int length)
         {
             int[] arr_count_row = new int[(length - 1)];// (int*)malloc((length - 1) * sizeof(int));
@@ -174,25 +199,32 @@ namespace LargestRectangleInBinaryMatrixCSharp
             int maxLocal = 0;
             int step = 1;
             int i, j = 0;
+            Console.WriteLine("\t" + CreateBarTableString(24));
             for (i = 0; i < length; i++)
             {
+
                 maxLocal = 0;
                 if (i == (length - step))
                 {
                     step++;
                     i = 0;
+                    Console.WriteLine("\t" + CreateBarTableString(24));
+                    Console.WriteLine("\t" + "\n\n");
+                    Console.WriteLine("\t" + CreateBarTableString(24));
                 }
                 if (length == step)
                 {
                     break;
                 }
+               
+                
                 for (j = 0; j < length; j++)
                 {
                     if (matrix[i][j] == step && matrix[i + 1][j] == step)
                     {
                         matrix[i][j] = step + 1;
                         maxLocal += matrix[i][j];
-
+                        
                     }
                     else
                     {
@@ -204,10 +236,19 @@ namespace LargestRectangleInBinaryMatrixCSharp
                         maxLocal = 0;
                     }
                 }
+                
+                var para = new List<string>();
+                for ( j = 0; j < length; j++)
+                {
+                    para.Add(matrix[i][j].ToString());
+                }
+                
+                
                 if (maxLocal > max)
                 {
                     max = maxLocal;
-                }
+                }para.Add("Max : "+max.ToString());
+                Console.WriteLine("\t" + CreateRowTableString(para.ToArray()));
             }
             return max;
         }
@@ -296,22 +337,7 @@ namespace LargestRectangleInBinaryMatrixCSharp
 
             return new int[] { x1, y1, x2, y2, maxSize };
         }
-        private static string CreateRowTableString(string[] para)
-        {
-            StringBuilder builder = new StringBuilder();
-            int length = para.Count();
-            for (int i = 0; i < length; i++)
-            {
-                builder.Append("|");
-                var countChar = para[i].Count();
-                int padLeft = (12 - countChar) / 2;
-                int padRight = ((12 - countChar) % 2) == 0 ? padLeft : padLeft + 1;
-                builder.Append(para[i].PadLeft(padLeft).PadRight(padRight));
-            }
-            builder.Append("|");
-
-            return builder.ToString();
-        }
+      
         public static void Main(string[] args)
         {
             var barTop = CreateRowTableString(new string[] { "File", "Case", "Result", "Details" });
@@ -323,7 +349,15 @@ namespace LargestRectangleInBinaryMatrixCSharp
                 new int[] {1, 1, 1, 1},
                 new int[] {1, 1, 0, 0}
             };
-
+            Console.WriteLine();
+            Console.WriteLine("\t"+CreateBarTableString(24));
+            Console.WriteLine("\t" + CreateRowTableString(new string[]{"0","1","1","0","Max : 2" }));
+            Console.WriteLine("\t" + CreateRowTableString(new string[] { "1", "1", "1", "1", "Max : 4" }));
+            Console.WriteLine("\t" + CreateRowTableString(new string[] { "1", "1", "1", "1", "Max : 4" }));
+            Console.WriteLine("\t" + CreateRowTableString(new string[] { "1", "1", "0", "0", "Max : 4" }));
+            Console.WriteLine("\t" + CreateBarTableString(24));
+            Console.WriteLine(); Console.WriteLine();
+            findMax(C, 2, 4);
             int[][] E = new int[][]
             {new int[] {1, 1, 1, 1,1,1},
             new int[] {1, 1, 1, 1,1,1},

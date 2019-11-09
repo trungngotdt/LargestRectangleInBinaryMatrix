@@ -200,6 +200,8 @@ namespace PortableTestLargestRectangleInBinaryMatrix
         }
         static void Main(string[] args)
         {
+            
+
             //RunCommand("ls");
             TestJava();
             TestPy();
