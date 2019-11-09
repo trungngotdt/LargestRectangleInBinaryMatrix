@@ -41,7 +41,7 @@ namespace PortableTestLargestRectangleInBinaryMatrix
             string error = process.StandardError.ReadToEnd();
             if (!(String.IsNullOrEmpty(error) || String.IsNullOrWhiteSpace(error)))
             {
-                RunCommand($"echo 'Error : {error}'");
+                Console.WriteLine($"Error : {error}");
             }
             process.WaitForExit();
         }
@@ -85,8 +85,7 @@ namespace PortableTestLargestRectangleInBinaryMatrix
 
         static void RunTest(string commandBuild, string pathSourceCode, string typeLanguage, string commandRunProgram)
         {
-            RunCommand($"cd {pathTestCase} ; Remove-Item Out*");
-            RunCommand($"cd {pathSourceCode} ; {commandBuild}");
+            RunCommand($"cd {pathTestCase} ; Remove-Item Out* ; cd {pathSourceCode} ; {commandBuild}");
             DirectoryInfo d = new DirectoryInfo(pathTestCase);
 
             FileInfo[] Files = d.GetFiles("*.txt");
@@ -96,16 +95,17 @@ namespace PortableTestLargestRectangleInBinaryMatrix
             string pathFileExpect = String.Empty;
             List<string> para;
             var bar = CreateBarTableString(53);
-            RunCommand($"echo {bar}");
+            Console.WriteLine(bar);
             var barTop = CreateRowTableString(new string[] { "File", "Case", "Result", "Details" });
-            RunCommand($"echo '{barTop}'");
+            Console.WriteLine(barTop);
             var countFalse = 0;
             StringBuilder runProgram =new StringBuilder("cd " + pathTestCase + ";");
+            string prefixPathFile = (typeLanguage.Equals("OutC") ? pathTestCase + @"\" : "");
             for (int i = 0; i < totalFile; i++)
             {
                 int index = i + 1;
-                pathFileInput =(typeLanguage.Equals("OutC")? pathTestCase:"") + "test" + index + ".txt";
-                pathFileOutput = (typeLanguage.Equals("OutC") ? pathTestCase : "") + typeLanguage + Files[i].Name;
+                pathFileInput =prefixPathFile+ "test" + index + ".txt";
+                pathFileOutput =prefixPathFile+ typeLanguage + Files[i].Name;
                 runProgram.Append(commandRunProgram);
                 runProgram.Append(pathFileInput);
                 runProgram.Append(" ");
@@ -141,42 +141,42 @@ namespace PortableTestLargestRectangleInBinaryMatrix
                         countFalse++;
                     }
                     var row = CreateRowTableString(para.ToArray());
-                    RunCommand($"echo '{row}'");
+                    Console.WriteLine(row);
                 }
                 catch (Exception ex)
                 {
                     para.AddRange(new string[] { pathFileInput, (i + 1).ToString(), "False", ex.ToString() });
                     var row = CreateRowTableString(para.ToArray());
-                    RunCommand($"echo '{row}'");
+                    Console.WriteLine(row);
                     countFalse++;
                 }
             }
-            RunCommand($"echo {bar}");
+            Console.WriteLine( bar);
         }
 
         public static void TestJava()
         {
 
-            RunCommand("echo 'Test Java'");
+            Console.WriteLine("Test Java");
             RunCommand($"cd {pathSourceJava} ; Remove-Item *.class ; cd {pathTestCase} ; Remove-Item *.class");
             string commandRun = "java Main ";
             string commandBuild = $"javac Main.java ; Copy-Item Main.class {pathTestCase}";
             string typeLanguage = "OutJava";
             RunTest(commandBuild, pathSourceJava, typeLanguage, commandRun);
             RunCommand($"cd {pathSourceJava} ; Remove-Item *.class");
-            RunCommand($"cd {pathTestCase} ; Remove-Item *.class");
+            RunCommand($"cd {pathTestCase} ; Remove-Item *.class ;Remove-Item Out.*");
         }
 
         public static void TestPy()
         {
 
-            RunCommand("echo 'Test Py'");
+            Console.WriteLine("Test Py");
             RunCommand($"cd {pathTestCase} ; Remove-Item *.py");
             string commandRun = "python  LargestRectangleInBinaryMatrixPy.py ";
             string commandBuild = $"copy LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
             string typeLanguage = "OutPy";
             RunTest(commandBuild, pathSourcePy, typeLanguage, commandRun);
-            RunCommand($"cd {pathTestCase} ; Remove-Item *.py");
+            RunCommand($"cd {pathTestCase} ; Remove-Item *.py;");
         }
         public static void TestC()
         {
@@ -184,25 +184,25 @@ namespace PortableTestLargestRectangleInBinaryMatrix
             string pathGcc=linesOfFilePathGcc.Any()?linesOfFilePathGcc.ElementAt(0):" ";
             if (String.IsNullOrWhiteSpace( pathGcc))
             {
-                RunCommand("Can't not find path of gcc!");
+                Console.WriteLine("Can't not find path of gcc!");
             }
             else
             {
-                RunCommand("echo Test C");
+                Console.WriteLine("Test C");
                 RunCommand($"cd {pathSourceC} ; Remove-Item sourceOut.* ;cd {pathTestCase} ; Remove-Item sourceOut.*");
                 string commandRun = $"{pathGcc+@"\"}sourceOut.exe ";
                 string commandBuild = $"Copy-Item Source.c {pathGcc};cd {pathGcc};./gcc.exe -std=c90 -pedantic -g -rdynamic Source.c -o sourceOut.exe ;";
                 string typeLanguage = "OutC";
                 RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
-                RunCommand($"cd {pathGcc} ; Remove-Item sourceOut.* ; cd {pathSourceC} ; Remove-Item sourceOut.* ;cd {pathTestCase} ; Remove-Item sourceOut.*");
+                RunCommand($"cd {pathGcc} ; Remove-Item source* ; cd {pathSourceC} ; Remove-Item sourceOut.* ;cd {pathTestCase} ; Remove-Item sourceOut.* ;Remove-Item Out*");
             }
             
         }
         static void Main(string[] args)
         {
             //RunCommand("ls");
-            //TestJava();
-            //TestPy();
+            TestJava();
+            TestPy();
             TestC();
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();
