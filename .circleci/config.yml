@@ -14,7 +14,7 @@ jobs:
           command : apt -y install adoptopenjdk-8-hotspot
       - run:
           name: buildC
-          command : cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic Source.c -o run
+          command : cd /root/project/LargestRectangleInBinaryMatrixC && gcc -std=c90 -pedantic -g -rdynamic main.c -o run
       - run:
           name: buildJava
           command : java -version && cd /root/project/LargestRectangleInBinaryMatrixJava/src/com/company && javac Main.java
