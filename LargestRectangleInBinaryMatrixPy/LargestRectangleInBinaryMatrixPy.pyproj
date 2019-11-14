@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3656956f-b15a-417f-b380-1ae5c8dc970a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>LargestRectangleInBinaryMatrixPy.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,8 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LargestRectangleInBinaryMatrixPy.py" />
-    <Compile Include="Main.py" />
+    <Compile Include="main.py" />
+    <Compile Include="Main02.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

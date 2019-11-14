@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LargestRectangleInBinaryMatrixC.c" />
-    <ClCompile Include="Source.c" />
+    <ClCompile Include="main.c" />
     <ClCompile Include="Source2.c" />
   </ItemGroup>
   <ItemGroup>

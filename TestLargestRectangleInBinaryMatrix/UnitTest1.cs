@@ -152,8 +152,8 @@ namespace TestLargestRectangleInBinaryMatrix
 
             RunCommand("echo Test Py");
             RunCommand($"cd {pathTestCase} && rm *.py");
-            string commandRun = "python3  LargestRectangleInBinaryMatrixPy.py ";
-            string commandBuild = $"cp LargestRectangleInBinaryMatrixPy.py {pathTestCase}";
+            string commandRun = "python3  main.py ";
+            string commandBuild = $"cp main.py {pathTestCase}";
             string typeLanguage = "OutPy";
             RunTest(commandBuild, pathSourcePy, typeLanguage, commandRun);
             RunCommand($"cd {pathTestCase} && rm *.py");
@@ -182,7 +182,7 @@ namespace TestLargestRectangleInBinaryMatrix
             RunCommand("echo Test C");
             RunCommand($"cd {pathSourceC} && rm run &&cd {pathTestCase} && rm run");
             string commandRun = "./run ";
-            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic Source.c -o run && cp run {pathTestCase}";
+            string commandBuild = $"gcc -std=c90 -pedantic -g -rdynamic main.c -o run && cp run {pathTestCase}";
             string typeLanguage = "OutC";
             RunTest(commandBuild, pathSourceC, typeLanguage, commandRun);
             RunCommand($"cd {pathSourceC} && rm run &&cd {pathTestCase} && rm run");

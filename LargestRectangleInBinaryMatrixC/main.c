@@ -1,7 +1,12 @@
-#include <limits.h> 
+﻿#include <limits.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
-
+/*
+Authors:
+Trần Trung Hiếu - 51703086
+Ngô Quốc Trung - 51503026
+Trần Văn Tài - 51503138
+*/
 
 int findMax(int** matrix, int max, int length)
 {

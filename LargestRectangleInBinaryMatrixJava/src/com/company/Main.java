@@ -1,5 +1,10 @@
 //package com.company;
-
+/*
+Authors:
+Trần Trung Hiếu - 51703086
+Ngô Quốc Trung - 51503026
+Trần Văn Tài - 51503138
+*/
 import java.io.*;
 import java.util.*;
 
