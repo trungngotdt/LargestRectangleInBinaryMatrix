@@ -4,7 +4,7 @@
 # Trần Văn Tài - 51503138
 
 import sys
-def findMaxmatrix( max, length):
+def findMax(matrix, max, length):
     maxInRow = 0
     step = 1
     numberOfRow = 0

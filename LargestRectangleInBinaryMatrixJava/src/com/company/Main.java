@@ -10,45 +10,42 @@ import java.util.*;
 
 public class Main {
     static int findMax(int[][] matrix, int max, int length)
-    {
-        int maxLocal = 0;
-        int step = 1;
-        int i, j = 0;
-        for (i = 0; i < length; i++)
-        {
-            maxLocal = 0;
-            if (i == (length - step))
-            {
-                step++;
-                i = 0;
-            }
-            if (length == step)
-            {
-                break;
-            }
-            for (j = 0; j < length; j++)
-            {
-                if (matrix[i][j] == step && matrix[i + 1][j] == step)
-                {
-                    matrix[i][j] = step + 1;
-                    maxLocal += matrix[i][j];
-                }
-                else
-                {
-                    if (maxLocal > max)
-                    {
-                        max = maxLocal;
-                    }
-                    matrix[i][j] = 0;
-                    maxLocal = 0;
-                }
-            }
-            if (maxLocal > max)
-            {
-                max = maxLocal;
-            }
-        }
-        return max;
+    {        
+		int maxInRow = 0;
+		int step = 1;
+		int numberOfRow = 0;
+		int row, column = 0;
+		for (numberOfRow = length - 1; numberOfRow > 0; numberOfRow--)
+		{
+			step = length - numberOfRow;
+			for (row = 0; row < numberOfRow; row++)
+			{
+				maxInRow = 0;
+				for (column = 0; column < length; column++)
+				{
+					if (matrix[row][column] == step && matrix[row + 1][column] == step)
+					{
+						matrix[row][column] = step + 1;
+						maxInRow += matrix[row][column];
+
+					}
+					else
+					{
+						if (maxInRow > max)
+						{
+							max = maxInRow;
+						}
+						matrix[row][column] = 0;
+						maxInRow = 0;
+					}
+				}
+				if (maxInRow > max)
+				{
+					max = maxInRow;
+				}
+			}
+		}
+		return max;
     }
 
     static ArrayList ReadFile(String path) throws IOException {
