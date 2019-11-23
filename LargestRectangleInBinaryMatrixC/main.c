@@ -10,41 +10,38 @@ Trần Văn Tài - 51503138
 
 int findMax(int** matrix, int max, int length)
 {
-	int maxLocal;
+	int maxInRow = 0;
 	int step = 1;
-	int i, j = 0;
-	for (i = 0; i < length; i++)
+	int numberOfRow = 0;
+	int row, column = 0;
+	for (numberOfRow = length - 1; numberOfRow > 0; numberOfRow--)
 	{
-		maxLocal = 0;
-		if (i == (length - step))
+		step = length - numberOfRow;
+		for (row = 0; row < numberOfRow; row++)
 		{
-			step++;
-			i = 0;
-		}
-		if (length == step)
-		{
-			break;
-		}
-		for (j = 0; j < length; j++)
-		{
-			if (matrix[i][j] == step && matrix[i + 1][j] == step)
+			maxInRow = 0;
+			for (column = 0; column < length; column++)
 			{
-				matrix[i][j] = step + 1;
-				maxLocal += matrix[i][j];
-			}
-			else
-			{
-				if (maxLocal > max)
+				if (matrix[row][column] == step && matrix[row + 1][column] == step)
 				{
-					max = maxLocal;
+					matrix[row][column] = step + 1;
+					maxInRow += matrix[row][column];
+
 				}
-				matrix[i][j] = 0;
-				maxLocal = 0;
+				else
+				{
+					if (maxInRow > max)
+					{
+						max = maxInRow;
+					}
+					matrix[row][column] = 0;
+					maxInRow = 0;
+				}
 			}
-		}
-		if (maxLocal > max)
-		{
-			max = maxLocal;
+			if (maxInRow > max)
+			{
+				max = maxInRow;
+			}
 		}
 	}
 	return max;

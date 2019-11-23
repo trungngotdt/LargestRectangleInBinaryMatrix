@@ -196,10 +196,41 @@ namespace LargestRectangleInBinaryMatrixCSharp
         }
         public static int findMax(int[][] matrix, int max, int length)
         {
-            int maxLocal = 0;
+            int maxInRow = 0;
             int step = 1;
-            int i, j = 0;
-            Console.WriteLine("\t" + CreateBarTableString(24));
+            int numberOfRow = 0;
+            int row, column = 0;
+            for (numberOfRow = length-1; numberOfRow >0; numberOfRow--)
+            {
+                step = length - numberOfRow;
+                for ( row = 0; row < numberOfRow; row++)
+                {
+                    maxInRow = 0;
+                    for (column = 0; column < length; column++)
+                    {
+                        if (matrix[row][column] == step && matrix[row + 1][column] == step)
+                        {
+                            matrix[row][column] = step + 1;
+                            maxInRow += matrix[row][column];
+
+                        }
+                        else
+                        {
+                            if (maxInRow > max)
+                            {
+                                max = maxInRow;
+                            }
+                            matrix[row][column] = 0;
+                            maxInRow = 0;
+                        }
+                    }
+                    if (maxInRow > max)
+                    {
+                        max = maxInRow;
+                    }
+                }
+            }
+            /*
             for (i = 0; i < length; i++)
             {
 
@@ -249,7 +280,8 @@ namespace LargestRectangleInBinaryMatrixCSharp
                     max = maxLocal;
                 }para.Add("Max : "+max.ToString());
                 Console.WriteLine("\t" + CreateRowTableString(para.ToArray()));
-            }
+            }*/
+
             return max;
         }
         /// <summary>
@@ -349,6 +381,7 @@ namespace LargestRectangleInBinaryMatrixCSharp
                 new int[] {1, 1, 1, 1},
                 new int[] {1, 1, 0, 0}
             };
+            /*
             Console.WriteLine();
             Console.WriteLine("\t"+CreateBarTableString(24));
             Console.WriteLine("\t" + CreateRowTableString(new string[]{"0","1","1","0","Max : 2" }));
@@ -356,7 +389,7 @@ namespace LargestRectangleInBinaryMatrixCSharp
             Console.WriteLine("\t" + CreateRowTableString(new string[] { "1", "1", "1", "1", "Max : 4" }));
             Console.WriteLine("\t" + CreateRowTableString(new string[] { "1", "1", "0", "0", "Max : 4" }));
             Console.WriteLine("\t" + CreateBarTableString(24));
-            Console.WriteLine(); Console.WriteLine();
+            Console.WriteLine(); Console.WriteLine();*/
             findMax(C, 2, 4);
             int[][] E = new int[][]
             {new int[] {1, 1, 1, 1,1,1},

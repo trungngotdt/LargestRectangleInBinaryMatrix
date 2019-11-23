@@ -4,34 +4,26 @@
 # Trần Văn Tài - 51503138
 
 import sys
-def findMax(matrix, max, length):
-    maxLocal=0
+def findMaxmatrix( max, length):
+    maxInRow = 0
     step = 1
-    i=0
-    j = 0
-    while i < length:
-        maxLocal = 0
-        if i == (length - step):
-            step=step+1
-            i = 0
-        if length == step:
-            break
-        j=0
-        while j<length:            
-            if matrix[i][j] == step and matrix[i + 1][j] == step:
-                matrix[i][j] = step + 1
-                maxLocal =maxLocal+ matrix[i][j]
-            else :
-                if maxLocal > max:
-                    max = maxLocal
-                matrix[i][j] = 0
-                maxLocal = 0
-            j=j+1
-        if maxLocal > max:
-            max = maxLocal
-        i=i+1
-       
-    
+    numberOfRow = 0
+    row, column = 0
+    for numberOfRow in range(length-1,0,-1):
+       step = length - numberOfRow
+       for row in range(0,numberOfRow):
+           maxInRow = 0
+           for column in range(0,length):
+                if matrix[row][column] == step  and  matrix[row + 1][column] == step:
+                   matrix[row][column] = step + 1
+                   maxInRow += matrix[row][column]
+                else:                
+                   if maxInRow > max:                    
+                       max = maxInRow                    
+                   matrix[row][column] = 0
+                   maxInRow = 0
+           if maxInRow > max:            
+               max = maxInRow
     return max
 
 array=[]
