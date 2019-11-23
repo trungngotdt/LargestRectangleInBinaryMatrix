@@ -8,7 +8,8 @@ def findMax(matrix, max, length):
     maxInRow = 0
     step = 1
     numberOfRow = 0
-    row, column = 0
+    row=0
+    column = 0
     for numberOfRow in range(length-1,0,-1):
        step = length - numberOfRow
        for row in range(0,numberOfRow):
