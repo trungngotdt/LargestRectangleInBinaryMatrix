@@ -36,7 +36,7 @@ for i in range(1,count+1):
     #print(strArr)
     array.append(strArr)
 
-max=0
+maxi=0
 
 for i in range(0,count):
     tempMax = 0
@@ -45,13 +45,13 @@ for i in range(0,count):
             tempMax = tempMax + 1
         else:
             tempMax = 0
-        if tempMax>max:
-            max = tempMax
+        if tempMax>maxi:
+            maxi = tempMax
 
-max=findMax(array,max,count)
+maxi=findMax(array,maxi,count)
 output= open(sys.argv[2],"w+")
 
-output.write(str( max))
+output.write(str( maxi))
 output.close()
 #for i in range(0,count):
 #    print(input.readline())
