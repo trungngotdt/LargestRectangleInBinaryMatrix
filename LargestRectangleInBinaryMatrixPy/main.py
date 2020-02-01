@@ -4,8 +4,8 @@
 # Trần Văn Tài - 51503138
 
 import sys
-def findMax(matrix, max, length):
-    maxInRow = 0
+def findMax(matrix, maxFinal, length):
+    maxLocal = 0
     step = 1
     numberOfRow = 0
     row=0
@@ -13,19 +13,17 @@ def findMax(matrix, max, length):
     for numberOfRow in range(length-1,0,-1):
        step = length - numberOfRow
        for row in range(0,numberOfRow):
-           maxInRow = 0
+           maxLocal = 0
            for column in range(0,length):
                 if matrix[row][column] == step  and  matrix[row + 1][column] == step:
                    matrix[row][column] = step + 1
-                   maxInRow += matrix[row][column]
+                   maxLocal += matrix[row][column]
                 else:                
-                   if maxInRow > max:                    
-                       max = maxInRow                    
+                   maxFinal= max(maxFinal, maxLocal)                    
                    matrix[row][column] = 0
-                   maxInRow = 0
-           if maxInRow > max:            
-               max = maxInRow
-    return max
+                   maxLocal = 0
+           maxFinal= max(maxFinal, maxLocal)
+    return maxFinal
 
 array=[]
 input=open(sys.argv[1],"r")
